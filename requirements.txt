@@ -1,0 +1,4 @@
+torch
+whisper
+trandformers
+datasets
