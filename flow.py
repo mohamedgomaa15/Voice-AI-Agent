@@ -5,7 +5,7 @@ import torch.nn as nn
 import torch
 
 # get real microphone audio
-import sounddevice as sd
+#import sounddevice as sd
 import numpy as np
 from scipy.io.wavfile import write
 
