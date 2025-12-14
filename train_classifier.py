@@ -4,7 +4,7 @@ import torch
 import gc
 import os
 from dotenv import load_dotenv
-from dataset import Dataset
+from datasets import Dataset
 from utils import compute_metrics
 from sklearn.preprocessing import LabelEncoder
 import huggingface_hub
@@ -33,7 +33,7 @@ class IntentClassifier:
 
        self.tokenizer = self.load_tokenizer()
 
-       train_data, test_data = self.load_data(self.data_path)
+       train_data, test_data = self.load_data()
        self.train_model(train_data, test_data)
    
     def load_tokenizer(self):
@@ -56,9 +56,8 @@ class IntentClassifier:
                     per_device_eval_batch_size=32,
                     num_train_epochs=30,
                     weight_decay=0.01,
-                    evaluation_strategy="epoch",
                     logging_strategy="epoch",
-                    report_to="None",
+                    report_to="none",
                     push_to_hub=True,
                 )
         
@@ -71,8 +70,6 @@ class IntentClassifier:
                     data_collator=data_collator,
                     compute_metrics= compute_metrics
                 )
-
-        trainer.set_device(self.device)
 
         trainer.train()
 
