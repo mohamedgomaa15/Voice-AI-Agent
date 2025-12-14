@@ -81,7 +81,7 @@ class IntentClassifier:
             torch.cuda.empty_cache()
 
     def load_data(self):
-        df = pd.read_csv("data\multilingual_intent_dataset.csv")
+        df = pd.read_csv("data/multilingual_intent_dataset.csv")
 
         # Encode Labels
         le = LabelEncoder()
