@@ -111,4 +111,10 @@ class IntentClassifier:
     def tokenize_func(self, examples):
         return self.tokenizer(examples['text'], truncation=True, padding='max_length')
 
+
+if __name__ == "__main__":
+    intent_classifier = IntentClassifier()    
+    
+
+
     
