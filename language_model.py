@@ -79,9 +79,9 @@ def llm_generate(user_input):
         outputs = lm_model.generate(
             **inputs,
             max_new_tokens=150,
-            temperature=0.1,
-            do_sample=True,
-            top_p=0.9,
+            temperature=0.0,
+            do_sample=False,
+            top_p=1.0,
             pad_token_id=lm_tokenizer.pad_token_id,
             eos_token_id=lm_tokenizer.eos_token_id,
         )
@@ -89,7 +89,14 @@ def llm_generate(user_input):
     # Decode only the new tokens
     generated_tokens = outputs[0][inputs['input_ids'].shape[1]:]
     result_text = lm_tokenizer.decode(generated_tokens, skip_special_tokens=True).strip()
-    
+
+    # Post-process: try to return only the JSON object if extra text was generated
+    import re
+    if not result_text.startswith("{"):
+        m = re.search(r"\{.*\}", result_text, re.DOTALL)
+        if m:
+            result_text = m.group(0)
+
     return result_text
 
 

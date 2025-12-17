@@ -1,4 +1,16 @@
 torch
 whisper
-trandformers
 datasets
+ollama
+pyttsx3
+pygame
+edge-tts
+gtts
+pandas
+sentencepiece
+accelerate
+transformers
+evaluate
+scikit-learn
+huggingface_hub
+flask
