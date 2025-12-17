@@ -14,3 +14,6 @@ evaluate
 scikit-learn
 huggingface_hub
 flask
+arabic_reshaper
+python-bidi
+langdetect

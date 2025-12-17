@@ -1,8 +1,12 @@
 from flask import Flask, request, render_template_string, redirect, url_for, jsonify
-from extract_entities import HybridIntentSystem
+try:
+  # Prefer multilingual system if available
+  from extract_entities import MultilingualHybridSystem as SystemClass
+except Exception:
+  from extract_entities import HybridIntentSystem as SystemClass
 
 app = Flask(__name__)
-system = HybridIntentSystem()
+system = SystemClass()
 history = []
 
 TEMPLATE = """
@@ -82,16 +86,29 @@ def index():
     if request.method == 'POST':
         q = request.form.get('query', '').strip()
         if q:
-            res = system.process_query(q)
+            # Support different system APIs (HybridIntentSystem vs MultilingualHybridSystem)
+            if hasattr(system, 'process_query'):
+                res = system.process_query(q)
+            elif hasattr(system, 'process_query_optimized'):
+                res = system.process_query_optimized(q)
+            else:
+                # fallback: try common names
+                fn = getattr(system, 'process', None)
+                if callable(fn):
+                    res = fn(q)
+                else:
+                    raise RuntimeError('No supported processing method found on system')
+
             entry = {
                 'query': q,
-                'intent': res['intent'],
-                'confidence': res['confidence'],
-                'entities': res['entities'],
-                'timing_ms': res['timing']['total_ms']
+                'intent': res.get('intent'),
+                'confidence': res.get('confidence', 0.0),
+                'entities': res.get('entities', {}),
+                'timing_ms': res.get('timing', {}).get('total_ms', 0.0)
             }
             history.insert(0, entry)
             last = entry
+
     return render_template_string(TEMPLATE, last=last, history=history)
 
 @app.route('/api/query', methods=['POST'])
@@ -100,7 +117,17 @@ def api_query():
     q = data.get('query') if isinstance(data, dict) else None
     if not q:
         return jsonify({'error': 'no query provided'}), 400
-    res = system.process_query(q)
+    if hasattr(system, 'process_query'):
+        res = system.process_query(q)
+    elif hasattr(system, 'process_query_optimized'):
+        res = system.process_query_optimized(q)
+    else:
+        fn = getattr(system, 'process', None)
+        if callable(fn):
+            res = fn(q)
+        else:
+            return jsonify({'error': 'no processing method available on system'}), 500
+
     return jsonify(res)
 
 @app.route('/clear')
