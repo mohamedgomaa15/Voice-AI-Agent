@@ -6,6 +6,7 @@ open HBO Max and look for Game of Thrones,open_app_and_search
 look for fantasy series,search
 show me survival shows,search
 search zombie shows,search
+turn on the lights,out_of_scope
 أريد معرفة معلومات عن تمارين رياضية,search
 افتح تطبيق TikTok,open_app
 look for cooking shows,search
@@ -27,17 +28,21 @@ search for true crime on Hulu,open_app_and_search
 ابحث عن وصفات طبخ,search
 start HGTV,open_app
 الغ وضع الطيران,settings
+turn off the lights,out_of_scope
 find parkour videos,search
 افتح تطبيق Instagram,open_app
 find documentaries on Apple TV,open_app_and_search
 turn off volume leveling,settings
+turn on the fan,out_of_scope
 افتح Google عشان أدور على فيديوهات تعليمية,open_app_and_search
 switch to Netflix and search for horror,open_app_and_search
 روح على Chrome واعرض فيديوهات تعليمية,open_app_and_search
+turn on the air conditioner,out_of_scope
 go Disney Plus search Marvel content fast,open_app_and_search
 افتح تطبيق Snapchat,open_app
 طفي البلوتوث,settings
 افتح تطبيق TikTok,open_app
+turn off the alarm,out_of_scope
 ادخل على WiFi,settings
 ادخل على تطبيق Snapchat,open_app
 دور على وظائف متاحة,search
@@ -53,6 +58,7 @@ launch Deezer,open_app
 boot up Disney Plus and search for classics,open_app_and_search
 ادخل على تطبيق YouTube,open_app
 search Nordic noir,search
+turn on my phone,out_of_scope
 set subtitles to French,settings
 launch Paramount Plus and find Yellowstone,open_app_and_search
 شغل برنامج TikTok,open_app
@@ -70,6 +76,7 @@ enable parental controls,settings
 ادخل Facebook وشوف برامج مشهورة,open_app_and_search
 قلل الإضاءة,settings
 look for HDR films,search
+turn off the computer,out_of_scope
 ابحث عن سعر الدولار,search
 افتح Chrome وابحث عن كتب مفيدة,open_app_and_search
 ادخل على تطبيق Twitter,open_app
@@ -97,6 +104,7 @@ look for feature length,search
 launch Prime Video and I need action movies,open_app_and_search
 شغل برنامج YouTube,open_app
 I need something to watch,search
+set alarm for 7am,out_of_scope
 شغل برنامج Instagram,open_app
 in Disney Plus search Marvel,open_app_and_search
 search Oppenheimer,search
@@ -115,6 +123,7 @@ should I go outside,out_of_scope
 ادخل على متصفح Chrome,open_app
 زود السطوع,settings
 go to MasterClass,open_app
+set temperature to 72 degrees,out_of_scope
 افتح Google عشان أدور على أغاني هادئة,open_app_and_search
 find martial arts films,search
 طفي الانترنت,settings
@@ -136,6 +145,7 @@ open Khan Academy,open_app
 find adventure movies,search
 Apple TV find documentaries,open_app_and_search
 اخفض الاهتزاز,settings
+set my location,out_of_scope
 ارفع الصوت,settings
 open Netflix,open_app
 دلني على الطقس اليوم,search
@@ -147,6 +157,7 @@ start Disney Plus to search for classics,open_app_and_search
 show me pilot episodes,search
 I want to open Netflix and search for horror,open_app_and_search
 عايز معلومات عن علاج الصداع,search
+translate to Spanish,out_of_scope
 enable auto volume,settings
 look for true crime shows,search
 افتح YouTube عشان أدور على أغاني هادئة,open_app_and_search
@@ -163,6 +174,7 @@ switch language,settings
 show me documentaries,search
 روح على الإعدادات,settings
 switch to HDMI 3,settings
+translate to French,out_of_scope
 ادخل YouTube وشوف كتب مفيدة,open_app_and_search
 ممكن تدور على وصفات طبخ,search
 using Disney Plus search Marvel content,open_app_and_search
@@ -210,6 +222,7 @@ go to All 4,open_app
 ابحث عن أخبار الرياضة,search
 launch YouTube then search cat videos,open_app_and_search
 فعل الانترنت,settings
+how do you say hello in Italian,out_of_scope
 use YouTube to find tutorials,open_app_and_search
 change sharpness,settings
 شغل Facebook ودور على صور طبيعة,open_app_and_search
@@ -230,15 +243,18 @@ disable auto-update,settings
 افتح Google وابحث عن فيديوهات تعليمية,open_app_and_search
 اقفل WiFi,settings
 find 3D movies available,search
+say this in Korean,out_of_scope
 افتح Chrome عشان أدور على فيديوهات تعليمية,open_app_and_search
 دلني على سعر الدولار,search
 افتح YouTube وابحث عن برامج مشهورة,open_app_and_search
 move subtitles down,settings
 YouTube and find tutorials,open_app_and_search
 find single season shows,search
+translate this sentence to Russian,out_of_scope
 search for films starring Matt Damon,search
 افتح الانترنت,settings
 افتح تطبيق TikTok,open_app
+translate document to English,out_of_scope
 افتح وضع الطيران,settings
 افتح الإعدادات,settings
 adjust audio delay,settings
@@ -257,15 +273,18 @@ go to component input,settings
 start Crave,open_app
 search for Inception on Netflix,open_app_and_search
 عايز معلومات عن تمارين رياضية,search
+what's the German word for cat,out_of_scope
 روح على Facebook واعرض مباريات اليوم,open_app_and_search
 open Netflix then find Inception,open_app_and_search
 open Hallmark Channel,open_app
 launch Udemy,open_app
 switch to Hindi,settings
+change website language to Dutch,out_of_scope
 get YouTube with find for music,open_app_and_search
 روح على Instagram واعرض صور طبيعة,open_app_and_search
 ممكن تدور على محلات ملابس قريبة,search
 I need Netflix and I want to search Inception,open_app_and_search
+adjust the temperature,out_of_scope
 ادخل Instagram وشوف صور طبيعة,open_app_and_search
 ممكن تدور على أفلام جديدة,search
 start the Prime Video application,open_app
@@ -321,12 +340,14 @@ set to standard mode,settings
 make subtitles smaller,settings
 go to Tubi,open_app
 طفي التنبيهات,settings
+change my password,out_of_scope
 افتح GPS,settings
 افتح تطبيق Facebook,open_app
 ادخل على تطبيق TikTok,open_app
 search Stranger Things,search
 افتح YouTube وابحث عن أغاني هادئة,open_app_and_search
 افتح Google وابحث عن كتب مفيدة,open_app_and_search
+adjust the lighting in the room,out_of_scope
 go to the movie streaming app,open_app
 شغل البلوتوث,settings
 افتح تطبيق YouTube الآن,open_app
@@ -381,6 +402,7 @@ switch to external speakers,settings
 open HBO Max,open_app
 ابحث عن أخبار الرياضة,search
 take me to YouTube,open_app
+change my email address,out_of_scope
 find cinematic universe,search
 طفي البلوتوث,settings
 show network settings,settings
@@ -401,6 +423,7 @@ change to Disney Plus,open_app
 روح على YouTube واعرض فيديوهات تعليمية,open_app_and_search
 Disney,open_app
 اقفل الوضع الصامت,settings
+adjust my privacy settings on Facebook,out_of_scope
 find mountain climbing documentaries,search
 turn off Bluetooth,settings
 أريد معرفة معلومات عن أخبار الرياضة,search
@@ -416,6 +439,7 @@ look for films by Quentin Tarantino,search
 افتح تطبيق Facebook الآن,open_app
 اخفض الاهتزاز,settings
 افتح تطبيق YouTube,open_app
+change the background color on my website,out_of_scope
 دور على أخبار الرياضة,search
 find crime dramas,search
 open audio streaming,open_app
@@ -473,9 +497,11 @@ life is complicated,out_of_scope
 move subtitles up,settings
 شغل التنبيهات,settings
 ادخل Instagram وشوف صور طبيعة,open_app_and_search
+adjust my insurance coverage,out_of_scope
 let me use Netflix to search for comedies,open_app_and_search
 ادخل على تطبيق Twitter,open_app
 search for circus documentaries,search
+enable notifications on my phone,out_of_scope
 jump to Disney Plus and search Pixar,open_app_and_search
 شغل Instagram ودور على برامج مشهورة,open_app_and_search
 شغل تطبيق Gmail,open_app
@@ -567,6 +593,7 @@ tell me a joke,out_of_scope
 شغل برنامج Maps,open_app
 روح على Google واعرض آخر الأخبار,open_app_and_search
 open My5,open_app
+disable cookies,out_of_scope
 adjust sharpness,settings
 change to warm color,settings
 fire Netflix and search thriller series,open_app_and_search
@@ -588,6 +615,7 @@ lower the brightness,settings
 افتح Instagram وابحث عن برامج مشهورة,open_app_and_search
 ممكن تدور على سعر الدولار,search
 go to Apple TV and search for Foundation,open_app_and_search
+enable dark mode on my browser,out_of_scope
 روح على Facebook واعرض مطاعم قريبة,open_app_and_search
 كيف أقدر ألاقي وظائف متاحة,search
 افتح Google عشان أدور على كتب مفيدة,open_app_and_search
@@ -615,6 +643,7 @@ open Amazon Music,open_app
 ادخل على تطبيق Facebook,open_app
 search films with Brad Pitt,search
 افتح تطبيق Facebook,open_app
+disable automatic updates,out_of_scope
 افتح تطبيق Gmail,open_app
 go to Lifetime,open_app
 اقفل البلوتوث,settings
@@ -632,6 +661,7 @@ start Xumo,open_app
 طفي وضع الطيران,settings
 launch Pluto TV,open_app
 اقفل الموقع,settings
+enable two factor authentication,out_of_scope
 الغ التنبيهات,settings
 open Dailymotion,open_app
 go to the game store,open_app
@@ -723,10 +753,12 @@ run the HBO Max app,open_app
 disable kids mode,settings
 افتح تطبيق Facebook,open_app
 query YouTube for cat videos,open_app_and_search
+enable airplane mode,out_of_scope
 launch my music app,open_app
 Disney Plus show me Marvel,open_app_and_search
 ممكن تدور على سعر الدولار,search
 launch YouTube then find workout videos,open_app_and_search
+enable voice assistant on phone,out_of_scope
 I want HBO Max,open_app
 كيف أقدر ألاقي وصفات طبخ,search
 find newly added content,search
@@ -737,6 +769,8 @@ in Netflix search for horror,open_app_and_search
 search what's new,search
 افتح التنبيهات,settings
 مش فاهم,out_of_scope
+open Netflix and find thriller movies,open_app_and_search
+launch YouTube and search for music videos,open_app_and_search
 دلني على سعر الدولار,search
 I need a nap,out_of_scope
 open Criterion Channel,open_app
@@ -747,6 +781,8 @@ I’m sitting on the floor,out_of_scope
 look for R rated films,search
 check storage,settings
 I don’t feel motivated,out_of_scope
+go to Prime Video and look for sci-fi,open_app_and_search
+start Disney Plus and find Pixar films,open_app_and_search
 I’m thinking about my goals,out_of_scope
 navigate to YouTube,open_app
 ابحث عن تمارين رياضية,search
@@ -767,6 +803,8 @@ I’m waiting in line,out_of_scope
 طفي البيانات,settings
 start Xbox app,open_app
 افتح متصفح Chrome,open_app
+open Hulu and search for crime shows,open_app_and_search
+launch Netflix and look for horror content,open_app_and_search
 أريد معرفة معلومات عن أفضل المطاعم,search
 change sound mode,settings
 show me recent uploads,search
@@ -805,10 +843,12 @@ open the TV show app,open_app
 ادخل على تطبيق Snapchat,open_app
 فعل الوضع الصامت,settings
 reduce screen brightness,settings
+order food delivery,out_of_scope
 load Prime Video and look for westerns,open_app_and_search
 launch my Prime membership,open_app
 افتح Chrome وابحث عن مطاعم قريبة,open_app_and_search
 افتح YouTube وابحث عن أغاني هادئة,open_app_and_search
+order pizza from Dominos,out_of_scope
 ممكن تدور على وصفات طبخ,search
 اذهب إلى الإعدادات,settings
 افتح تطبيق Netflix,open_app
@@ -818,6 +858,7 @@ search Everything Everywhere All at Once,search
 افتح Chrome وابحث عن مطاعم قريبة,open_app_and_search
 set language to Spanish,settings
 روح على Instagram واعرض كتب مفيدة,open_app_and_search
+book a restaurant reservation,out_of_scope
 افتح التنبيهات,settings
 find adaptations of novels,search
 open Netflix then search for thrillers,open_app_and_search
@@ -829,6 +870,8 @@ I’m drinking water,out_of_scope
 disconnect headphones,settings
 ادخل على تطبيق Snapchat,open_app
 أنا جوعان,out_of_scope
+go to YouTube and find gaming videos,open_app_and_search
+start Spotify and play pop music,open_app_and_search
 شغل GPS,settings
 افتح WiFi,settings
 tell me a random fact,out_of_scope
@@ -837,6 +880,8 @@ go to VRV,open_app
 factory reset,settings
 كيف أقدر ألاقي وصفات طبخ,search
 فعل GPS,settings
+open Prime Video and search for classics,open_app_and_search
+launch HBO Max and find superhero movies,open_app_and_search
 I want to watch Marvel movies,search
 افتح متصفح Chrome,open_app
 I broke my headphones,out_of_scope
@@ -850,6 +895,8 @@ modify caption appearance,settings
 ارويلي قصة,out_of_scope
 I’m in a hurry,out_of_scope
 افتح التنبيهات,settings
+Netflix and search for standup specials,open_app_and_search
+YouTube find workout routines,open_app_and_search
 enable kids mode,settings
 اليوم كان طويل,out_of_scope
 افتح تطبيق Gmail,open_app
@@ -870,12 +917,16 @@ launch TLC,open_app
 زود الإضاءة,settings
 شغل متصفح Chrome,open_app
 search historical dramas,search
+open Disney and look for Star Wars content,open_app_and_search
+launch Prime and find Tom Cruise movies,open_app_and_search
 أريد معرفة معلومات عن سعر الدولار,search
 ارفع الاهتزاز,settings
 find critically acclaimed movies,search
+book a flight to Paris,out_of_scope
 check connection status,settings
 boot Prime Video and find action content,open_app_and_search
 ابحث عن وظائف متاحة,search
+book a hotel room,out_of_scope
 switch input,settings
 افتح Instagram عشان أدور على برامج مشهورة,open_app_and_search
 افتح تطبيق Chrome,open_app
@@ -904,11 +955,13 @@ I’m thinking about my future,out_of_scope
 give me Disney Plus,open_app
 adjust brightness,settings
 look for The Office,search
+schedule a doctor appointment,out_of_scope
 شغل برنامج Instagram,open_app
 شغل Facebook ودور على صور طبيعة,open_app_and_search
 change language to English,settings
 اخفض الاهتزاز,settings
 شغل YouTube ودور على مطاعم قريبة,open_app_and_search
+schedule a meeting for tomorrow,out_of_scope
 disable closed captions,settings
 اذهب إلى WiFi,settings
 start National Geographic,open_app
@@ -919,9 +972,11 @@ open Netflix and search for Inception,open_app_and_search
 launch Netflix and search Wednesday,open_app_and_search
 ارفع السطوع,settings
 allow me to use Prime Video to look for action,open_app_and_search
+cancel my subscription,out_of_scope
 change WiFi password,settings
 adjust backlight,settings
 search medical shows,search
+cancel my order,out_of_scope
 اقفل التنبيهات,settings
 افتح Chrome وابحث عن أغاني هادئة,open_app_and_search
 اذهب إلى إعدادات الشاشة,settings
@@ -934,6 +989,7 @@ start Plex,open_app
 I’m trying to relax,out_of_scope
 find PG-13 content,search
 افتح تطبيق Gmail الآن,open_app
+go to Netflix and search romantic comedies,open_app_and_search
 pull up my YouTube,open_app
 تمام,out_of_scope
 تمام,out_of_scope
@@ -956,10 +1012,12 @@ find gladiator movies,search
 Prime Video and look for Tom Hanks,open_app_and_search
 شغل برنامج WhatsApp,open_app
 fix brightness,settings
+check my email,out_of_scope
 Prime Video platform start and look for westerns,open_app_and_search
 دور على أفلام جديدة,search
 افتح WiFi,settings
 look for The Matrix,search
+send a text message,out_of_scope
 in YouTube find music videos,open_app_and_search
 find shows with Tina Fey,search
 ادخل YouTube وشوف كتب مفيدة,open_app_and_search
@@ -991,13 +1049,16 @@ find boxing movies,search
 الغ البلوتوث,settings
 اخفض الصوت,settings
 load Prime Video with look for thrillers,open_app_and_search
+call my mom,out_of_scope
 search Black Mirror,search
 ادخل على إعدادات الشاشة,settings
 ادخل على WiFi,settings
 open up my Netflix,open_app
+play a game,out_of_scope
 modify volume,settings
 شغل تطبيق Twitter,open_app
 قلل الاهتزاز,settings
+play chess with me,out_of_scope
 start Netflix and look for stand-up comedy,open_app_and_search
 روح على Google واعرض كتب مفيدة,open_app_and_search
 ادخل على إعدادات الشاشة,settings
@@ -1008,6 +1069,7 @@ how do you stay so calm,out_of_scope
 شغل YouTube ودور على مباريات اليوم,open_app_and_search
 طفي الوضع الصامت,settings
 افتح تطبيق Chrome,open_app
+play music on my phone,out_of_scope
 open Netflix please,open_app
 show Bluetooth devices,settings
 طفي GPS,settings
@@ -1016,6 +1078,7 @@ YouTube followed by find tutorials,open_app_and_search
 كيف أقدر ألاقي أخبار الرياضة,search
 switch to German,settings
 ادخل Facebook وشوف أغاني هادئة,open_app_and_search
+play some background music,out_of_scope
 search Squid Game,search
 start YouTube TV,open_app
 search for movies with Scarlett Johansson,search
@@ -1032,6 +1095,7 @@ I’m trying to lose weight,out_of_scope
 using Netflix search for comedies,open_app_and_search
 ابحث عن أخبار الرياضة,search
 find disaster movies,search
+play my podcast,out_of_scope
 ادخل على WiFi,settings
 search for supernatural shows,search
 تمام,out_of_scope
@@ -1039,6 +1103,7 @@ I want to watch a film,search
 افتح الانترنت,settings
 افتح تطبيق Instagram الآن,open_app
 install update,settings
+calculate tip for 50 dollars,out_of_scope
 روح على Google واعرض أغاني هادئة,open_app_and_search
 فين ألاقي أسعار السيارات,search
 افتح تطبيق TikTok,open_app
@@ -1054,11 +1119,13 @@ start Opera browser,open_app
 دلني على أسعار السيارات,search
 find a show to watch,search
 فعل الوضع الصامت,settings
+what's 25 times 8,out_of_scope
 شغل Google ودور على برامج مشهورة,open_app_and_search
 روح على Instagram واعرض مطاعم قريبة,open_app_and_search
 go to NFL Sunday Ticket,open_app
 look for comedy shows,search
 ارفع الاهتزاز,settings
+add 456 and 789,out_of_scope
 دلني على كورسات برمجة,search
 شغل التنبيهات,settings
 شو أطبخ اليوم؟,out_of_scope
@@ -1067,6 +1134,7 @@ start Chrome browser,open_app
 change input source,settings
 شغل Facebook ودور على فيديوهات تعليمية,open_app_and_search
 فعل وضع الطيران,settings
+convert 100 dollars to euros,out_of_scope
 go to Cartoon Network,open_app
 enhance screen brightness,settings
 volume to maximum,settings
@@ -1090,12 +1158,14 @@ my hands are shaking,out_of_scope
 عايز معلومات عن كورسات برمجة,search
 افتح تطبيق Snapchat,open_app
 go to DirecTV Stream,open_app
+will it rain tomorrow,out_of_scope
 show me jungle movies,search
 search for award winners,search
 go to Now TV,open_app
 افتح تطبيق Snapchat الآن,open_app
 أنا جوعان,out_of_scope
 الغ الموقع,settings
+what's the weather,search
 fix audio sync,settings
 do you dream,out_of_scope
 اذهب إلى WiFi,settings
@@ -1116,6 +1186,7 @@ set viewing restrictions,settings
 شغل تطبيق Netflix,open_app
 كيف حالك؟,out_of_scope
 check for updates,settings
+how's the weather today,search
 اخفض السطوع,settings
 مرحبا,out_of_scope
 شو أطبخ اليوم؟,out_of_scope
@@ -1130,6 +1201,7 @@ find action movies,search
 change to USB input,settings
 start Prime Video look action movies quickly,open_app_and_search
 search trilogy films,search
+what's the temperature outside,out_of_scope
 دور على تمارين رياضية,search
 شغل متصفح Chrome,open_app
 عايز معلومات عن أسعار الذهب,search
@@ -1139,6 +1211,7 @@ look for fashion shows,search
 فين ألاقي تمارين رياضية,search
 افتح متصفح Chrome الآن,open_app
 روح على إعدادات الصوت,settings
+what's on my calendar,out_of_scope
 search Avengers,search
 زود السطوع,settings
 head to Hulu,open_app
@@ -1148,6 +1221,7 @@ I feel nervous about tomorrow,out_of_scope
 افتح تطبيق Spotify,open_app
 فعل WiFi,settings
 I want to see movies with Leonardo DiCaprio,search
+check the traffic,out_of_scope
 قلل الصوت,settings
 volume to half,settings
 افتح تطبيق Instagram الآن,open_app
@@ -1160,6 +1234,7 @@ open Tidal,open_app
 ارفع الاهتزاز,settings
 شغل تطبيق WhatsApp,open_app
 شغل التنبيهات,settings
+who won the game,out_of_scope
 ادخل على تطبيق Gmail,open_app
 disable power saving,settings
 adjust zoom,settings
@@ -1181,10 +1256,12 @@ using Prime Video look for action,open_app_and_search
 افتح Instagram عشان أدور على برامج مشهورة,open_app_and_search
 search German films,search
 choose cable input,settings
+is the post office open,out_of_scope
 شغل الموقع,settings
 quieter please,settings
 bring me to YouTube and find tutorials,open_app_and_search
 change backlight setting,settings
+tell me a joke,out_of_scope
 روح على Chrome واعرض مطاعم قريبة,open_app_and_search
 change audio language,settings
 find latest episodes,search
