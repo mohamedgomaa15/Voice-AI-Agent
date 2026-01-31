@@ -1,5 +1,6 @@
 torch
 whisper
+openai-whisper
 datasets
 ollama
 pyttsx3
@@ -17,3 +18,5 @@ flask
 arabic_reshaper
 python-bidi
 langdetect
+pycaw # for Windows volume control
+comtypes # for Windows volume control

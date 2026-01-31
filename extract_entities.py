@@ -96,11 +96,11 @@ class MultilingualHybridSystem:
             "apple": {"en": "Apple TV", "ar": "آبل تي في"}
         }
         
-        # Precomputed common queries (both languages)
-        self._init_common_queries()
-        
         # Arabic normalization helper
         self._init_arabic_normalizer()
+
+        # Precomputed common queries (both languages)
+        self._init_common_queries()
         
         # Metrics
         self.metrics = {
@@ -153,8 +153,21 @@ class MultilingualHybridSystem:
     
     def _is_arabic(self, text: str) -> bool:
         """Detect if text contains Arabic characters"""
-        arabic_chars = set('؀-ۿ')  # Arabic Unicode range
-        return any(char in arabic_chars for char in text)
+        if not text:
+            return False
+
+        # Check Unicode codepoints for Arabic blocks
+        for char in text:
+            cp = ord(char)
+            if (
+                0x0600 <= cp <= 0x06FF or  # Arabic
+                0x0750 <= cp <= 0x077F or  # Arabic Supplement
+                0x08A0 <= cp <= 0x08FF or  # Arabic Extended-A
+                0xFB50 <= cp <= 0xFDFF or  # Arabic Presentation Forms-A
+                0xFE70 <= cp <= 0xFEFF     # Arabic Presentation Forms-B
+            ):
+                return True
+        return False
     
     def detect_language(self, text: str) -> str:
         """Detect language of input text"""
