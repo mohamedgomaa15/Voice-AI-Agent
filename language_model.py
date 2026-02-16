@@ -6,9 +6,9 @@ lm_llama = "meta-llama/Llama-3.2-1B-Instruct"
 lm_qwen = "Qwen/Qwen2.5-0.5B-Instruct"
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
-lm_tokenizer = AutoTokenizer.from_pretrained(lm_llama)
+lm_tokenizer = AutoTokenizer.from_pretrained(lm_qwen)
 lm_model = AutoModelForCausalLM.from_pretrained(
-    lm_llama, 
+    lm_qwen, 
     dtype=torch.bfloat16, 
 ).to(device)
 
@@ -206,12 +206,10 @@ def llm_generate(user_input, classifier=None):
     prompt = ""
     if classifier is not None:
         prompt_template = build_template_prompt(classifier, user_input)
-        print(f"Prompt: {prompt_template}")
        
        
     else:
         prompt_template = build_template_full_prompt(user_input)
-        print("full Prompt!!!!!!!!!!!!")
         
     # Apply chat template manually
     prompt_template = lm_tokenizer.apply_chat_template(
