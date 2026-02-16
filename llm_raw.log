@@ -1,0 +1,4 @@
+INTENT=settings QUERY=ممكن تعلي الصوت RESPONSE={"settings_action": "volume_up", "parameter": "volume"}}
+---
+INTENT=settings QUERY=make the volume up RESPONSE={"settings_action": "volume_up", "parameter": "volume"}}
+---

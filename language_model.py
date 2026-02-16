@@ -234,7 +234,14 @@ def llm_generate(user_input, classifier=None):
     # Decode only the new tokens
     generated_tokens = outputs[0][inputs['input_ids'].shape[1]:]
     result_text = lm_tokenizer.decode(generated_tokens, skip_special_tokens=True).strip()
-    
+
+    # Post-process: try to return only the JSON object if extra text was generated
+    import re
+    if not result_text.startswith("{"):
+        m = re.search(r"\{.*\}", result_text, re.DOTALL)
+        if m:
+            result_text = m.group(0)
+
     return result_text
 
 
