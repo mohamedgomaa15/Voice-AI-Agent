@@ -2,12 +2,13 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 from utils import examples, intents, entities
 
-lm_name_instruct = "meta-llama/Llama-3.2-1B-Instruct"
+lm_llama = "meta-llama/Llama-3.2-1B-Instruct"
+lm_qwen = "Qwen/Qwen2.5-0.5B-Instruct"
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
-lm_tokenizer = AutoTokenizer.from_pretrained(lm_name_instruct)
+lm_tokenizer = AutoTokenizer.from_pretrained(lm_qwen)
 lm_model = AutoModelForCausalLM.from_pretrained(
-    lm_name_instruct, 
+    lm_qwen, 
     dtype=torch.bfloat16, 
 ).to(device)
 
@@ -15,9 +16,9 @@ lm_model = AutoModelForCausalLM.from_pretrained(
 if lm_tokenizer.pad_token is None:
     lm_tokenizer.pad_token = lm_tokenizer.eos_token
 
-def build_messages(user_input):
+def build_template_full_prompt(user_input):
     """
-    Builds messages in the proper chat format for Llama 3.2 Instruct.
+    Builds messages in the proper chat format.
     
     Args:
         user_input: The user's command or query
@@ -52,9 +53,149 @@ Output format:
     
     return messages
 
-def llm_generate(user_input):
+def build_template_prompt(classifier_output, inp):
+
+    system_base = (
+        "You are an information extraction system. "
+        "You must return only a valid JSON object or the literal null. "
+        "Do not return any extra text."
+    )
+
+    if classifier_output == "open_app":
+        messages = [
+            {
+                "role": "system",
+                "content": system_base + " Extract the application name from the user request."
+            },
+            {
+                "role": "user",
+                "content": "open Netflix"
+            },
+            {
+                "role": "assistant",
+                "content": '{"app_name":"Netflix"}'
+            },
+             {
+                "role": "user",
+                "content": "launch YouTube"
+            },
+            {
+                "role": "assistant",
+                "content": '{"app_name":"YouTube"}'
+            },
+            {
+                "role": "user",
+                "content": inp
+            }
+        ]
+
+    elif classifier_output == "search":
+        messages = [
+            {
+                "role": "system",
+                "content": system_base + " Extract the search query from the user request."
+            },
+            {
+                "role": "user",
+                "content": "find comedy movies"
+            },
+            {
+                "role": "assistant",
+                "content": '{"search_query":"comedy movies"}'
+            },
+            {
+                "role": "user",
+                "content": "I am looking for Messi goals"
+            },
+            {
+                "role": "assistant",
+                "content": '{"search_query":"Messi goals"}'
+            },
+            {
+                "role": "user",
+                "content": inp
+            }
+        ]
+
+    elif classifier_output == "open_app_and_search":
+        messages = [
+            {
+                "role": "system",
+                "content": system_base + " Extract the application name and the search query from the user request."
+            },
+            {
+                "role": "user",
+                "content": "launch YouTube and find cat videos"
+            },
+            {
+                "role": "assistant",
+                "content": '{"app_name":"YouTube","search_query":"cat videos"}'
+            },
+            {
+                "role": "user",
+                "content": inp
+            }
+        ]
+
+    elif classifier_output == "settings":
+        messages = [
+            {
+                "role": "system",
+                "content": system_base + (
+                    " Extract the settings action from the user request. "
+                    "Valid values are: volume_up, volume_down, mute, unmute, "
+                    "brightness_up, brightness_down, subtitles_on, subtitles_off."
+                )
+            },
+            {
+                "role": "user",
+                "content": "increase volume"
+            },
+            {
+                "role": "assistant",
+                "content": '{"settings_action":"volume_up"}'
+            },
+            {
+                "role": "user",
+                "content": inp
+            }
+        ]
+
+    elif classifier_output == "out_of_scope":
+        messages = [
+            {
+                "role": "system",
+                "content": system_base + (
+                    " If the request is outside the supported capabilities, return that you can help with following. "
+                    "Supported capabilities: search for content, open applications, change settings."
+                )
+            },
+            {
+                "role": "user",
+                "content": inp
+            }
+        ]
+
+    else:
+        messages = [
+            {
+                "role": "system",
+                "content": system_base + " Always return null."
+            },
+            {
+                "role": "user",
+                "content": inp
+            }
+        ]
+
+    return messages
+
+
+        
+        
+def llm_generate(user_input, classifier=None):
     """
-    Generate intent and entity extraction using the LLM with proper chat format.
+    Generate entities extraction using the LLM with proper chat format.
     
     Args:
         user_input: The user's command or query
@@ -62,26 +203,30 @@ def llm_generate(user_input):
     Returns:
         JSON string with intent and entities
     """
-    messages = build_messages(user_input)
-    
+    prompt = ""
+    if classifier is not None:
+        prompt_template = build_template_prompt(classifier, user_input)
+       
+       
+    else:
+        prompt_template = build_template_full_prompt(user_input)
+        
     # Apply chat template manually
-    prompt = lm_tokenizer.apply_chat_template(
-        messages, 
+    prompt_template = lm_tokenizer.apply_chat_template(
+        prompt_template, 
         tokenize=False, 
         add_generation_prompt=True
     )
     
     # Tokenize
-    inputs = lm_tokenizer(prompt, return_tensors="pt").to(device)
+    inputs = lm_tokenizer(prompt_template, return_tensors="pt").to(device)
     
     # Generate
     with torch.no_grad():
         outputs = lm_model.generate(
             **inputs,
-            max_new_tokens=150,
-            temperature=0.0,
+            max_new_tokens=50,
             do_sample=False,
-            top_p=1.0,
             pad_token_id=lm_tokenizer.pad_token_id,
             eos_token_id=lm_tokenizer.eos_token_id,
         )
