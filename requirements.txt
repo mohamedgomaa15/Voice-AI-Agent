@@ -20,3 +20,4 @@ python-bidi
 langdetect
 pycaw # for Windows volume control
 comtypes # for Windows volume control
+sounddevice

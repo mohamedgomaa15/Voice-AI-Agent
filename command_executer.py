@@ -307,25 +307,49 @@ class CommandExecutor:
                 # Use nircmd for Windows (requires nircmd.exe)
                 # Or use pycaw library
                 try:
-                    from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
-                    from comtypes import CLSCTX_ALL
-                    from ctypes import cast, POINTER
-                    
-                    devices = AudioUtilities.GetSpeakers()
-                    interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
-                    volume = cast(interface, POINTER(IAudioEndpointVolume))
-                    
-                    current = volume.GetMasterVolumeLevelScalar()
-                    
-                    if 'up' in action:
-                        new_volume = min(current + 0.1, 1.0)
-                        volume.SetMasterVolumeLevelScalar(new_volume, None)
-                        return True, f"Volume increased to {int(new_volume * 100)}%"
-                    
-                    elif 'down' in action:
-                        new_volume = max(current - 0.1, 0.0)
-                        volume.SetMasterVolumeLevelScalar(new_volume, None)
-                        return True, f"Volume decreased to {int(new_volume * 100)}%"
+                        from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
+                        from comtypes import CLSCTX_ALL
+                        from ctypes import cast, POINTER
+
+                        # Try several strategies to obtain a device that supports Activate()
+                        device = None
+                        try:
+                            # Preferred: GetSpeakers() (common pycaw helper)
+                            dev = AudioUtilities.GetSpeakers()
+                            if hasattr(dev, 'Activate'):
+                                device = dev
+                        except Exception:
+                            device = None
+
+                        if device is None:
+                            # Try enumerating all devices and pick one that supports Activate
+                            try:
+                                all_devices = AudioUtilities.GetAllDevices()
+                                for d in all_devices:
+                                    if hasattr(d, 'Activate'):
+                                        device = d
+                                        break
+                            except Exception:
+                                device = None
+
+                        if device is None:
+                            raise AttributeError("No audio device with Activate() found via pycaw")
+
+                        interface = device.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
+                        volume = cast(interface, POINTER(IAudioEndpointVolume))
+
+                        current = volume.GetMasterVolumeLevelScalar()
+
+                        # Determine direction from action string (supports 'volume_up' / 'up')
+                        if 'up' in action or 'increase' in action:
+                            new_volume = min(current + 0.1, 1.0)
+                            volume.SetMasterVolumeLevelScalar(new_volume, None)
+                            return True, f"Volume increased to {int(new_volume * 100)}%"
+
+                        elif 'down' in action or 'decrease' in action:
+                            new_volume = max(current - 0.1, 0.0)
+                            volume.SetMasterVolumeLevelScalar(new_volume, None)
+                            return True, f"Volume decreased to {int(new_volume * 100)}%"
                 
                 except ImportError:
                     return False, "Volume control requires 'pycaw' library: pip install pycaw"

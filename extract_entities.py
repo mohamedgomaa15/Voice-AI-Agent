@@ -229,6 +229,73 @@ class MultilingualHybridSystem:
         normalized = self._normalize_arabic(text.lower()) if lang == "ar" else text.lower()
         return f"{lang}_{normalized}_{intent}"
     
+    def _classify_intent_arabic_rules(self, text: str) -> Tuple[Optional[str], float]:
+        """
+        Rule-based intent classification for Arabic text.
+        Catches common command patterns before neural classifier fails.
+        Returns (intent, confidence) or (None, 0) if no patterns match.
+        """
+        text_norm = self._normalize_arabic(text)
+        
+        # open_app_and_search: combined "افتح X و(ابحث عن|ابحث في) Y" — check first
+        if re.search(r"(?:افتح|شغل|ابدأ)\s+.+?(?:\s*و\s*(?:ابحث|ابحث عن|ابحث في|دور على)\s+.+)$", text_norm):
+            return "open_app_and_search", 0.90
+
+        # open_app patterns: "افتح/شغل/ابدأ/اذهب" X
+        if any(pattern in text_norm for pattern in ["افتح", "شغل", "ابدأ", "اذهب الى", "اذهب إلى"]):
+            return "open_app", 0.95  # High confidence for clear patterns
+
+        # search patterns: "ابحث عن/جد/دلني على" X
+        if any(pattern in text_norm for pattern in ["ابحث عن", "ابحث في", "جد", "دلني على", "دلني عن"]):
+            return "search", 0.95
+        
+        # play_media patterns: "شاهد/عرض/شغل" X
+        if any(pattern in text_norm for pattern in ["شاهد", "عرض", "حول الى", "حول إلى"]):
+            if "شاهد" in text_norm or "عرض" in text_norm:
+                return "play_media", 0.95
+        
+        # settings patterns: volume, brightness, channel, mute
+        settings_verbs = ["زد", "خفف", "اكتم", "صامت", "ارفع", "اخفض", "انقص", "قناة"]
+        if any(verb in text_norm for verb in settings_verbs):
+            return "settings", 0.95
+        
+        # No pattern matched
+        return None, 0.0
+    
+    def _classify_intent_english_rules(self, text: str) -> Tuple[Optional[str], float]:
+        """
+        Rule-based intent classification for English text.
+        Catches common patterns with high confidence.
+        Returns (intent, confidence) or (None, 0) if no patterns match.
+        """
+        text_lower = text.lower().strip()
+        
+        # open_app_and_search: "open X and search/find Y" — check first
+        if re.search(r"(?:open|launch|start)\s+.+?\s+(?:and|,)\s*(?:search for|find|search|look for)\s+.+", text_lower):
+            return "open_app_and_search", 0.90
+
+        # open_app patterns: "open/launch/start" X
+        open_app_keywords = r"^(?:open|launch|start|go to|switch to)\s+"
+        if re.match(open_app_keywords, text_lower):
+            return "open_app", 0.95
+
+        # search patterns: "search/find/look for" X
+        search_keywords = r"(?:search|find|look for|look up)\s+(?:for\s+)?(.+)"
+        if re.search(search_keywords, text_lower):
+            return "search", 0.95
+        
+        # play_media patterns: "play/watch" X
+        if re.match(r"^(?:play|watch)\s+", text_lower):
+            return "play_media", 0.95
+        
+        # settings patterns: volume, brightness, mute, channel
+        settings_keywords = r"(?:turn|set|change|increase|decrease|raise|lower|mute|unmute|volume|brightness|channel)"
+        if re.search(settings_keywords, text_lower):
+            return "settings", 0.95
+        
+        # No pattern matched
+        return None, 0.0
+    
     @lru_cache(maxsize=2000)
     def _cached_classify(self, text: str) -> Tuple[str, float]:
         """Cached intent classification (works for both languages)"""
@@ -248,10 +315,29 @@ class MultilingualHybridSystem:
         else:
             self.metrics["english_queries"] += 1
         
-        # Get intent from classifier
-        intent, confidence = self._cached_classify(text)
-        elapsed = time.time() - start
+        # Try rule-based classification FIRST (faster and more accurate for known patterns)
+        if lang == "ar":
+            intent, confidence = self._classify_intent_arabic_rules(text)
+        else:
+            intent, confidence = self._classify_intent_english_rules(text)
         
+        # If rule-based matched with high confidence, use it
+        if intent and confidence > 0.85:
+            elapsed = time.time() - start
+            return intent, confidence, elapsed, lang
+        
+        # Normalize Arabic text before neural classification
+        text_for_classification = self._normalize_arabic(text) if lang == "ar" else text
+        
+        # Get intent from neural classifier (fallback for uncertain cases)
+        neural_intent, neural_confidence = self._cached_classify(text_for_classification)
+        
+        # Use neural classifier result if rule-based didn't match or was low confidence
+        if not intent or confidence < 0.7:
+            intent = neural_intent
+            confidence = neural_confidence
+        
+        elapsed = time.time() - start
         return intent, confidence, elapsed, lang
     
     def extract_entities_multilingual(self, text: str, intent: str, lang: str) -> Dict:
@@ -366,16 +452,15 @@ class MultilingualHybridSystem:
                 m = re.search(r"mute (?:the )?(?P<target>\w+)", text_lower)
                 param = m.group('target') if m else None
                 return {"settings_action": "mute", **({"parameter": param} if param else {})}
-            elif any(x in text_lower for x in ["turn up", "increase", "raise"]):
-                if "volume" in text_lower:
-                    return {"settings_action": "volume_up", "parameter": "volume"}
-                elif "brightness" in text_lower:
-                    return {"settings_action": "brightness_up", "parameter": "brightness"}
-            elif any(x in text_lower for x in ["turn down", "decrease", "lower"]):
-                if "volume" in text_lower:
-                    return {"settings_action": "volume_down", "parameter": "volume"}
-                elif "brightness" in text_lower:
-                    return {"settings_action": "brightness_down", "parameter": "brightness"}
+            # volume up/down explicit phrases
+            elif re.search(r"\b(volume\s*(?:up|increase|high|higher)|increase\s+volume|turn\s+up\s+volume|raise\s+volume)\b", text_lower):
+                return {"settings_action": "volume_up", "parameter": "volume"}
+            elif re.search(r"\b(volume\s*(?:down|decrease|lower|low)|decrease\s+volume|turn\s+down\s+volume|lower\s+volume)\b", text_lower):
+                return {"settings_action": "volume_down", "parameter": "volume"}
+            elif any(x in text_lower for x in ["turn up", "increase", "raise"]) and "brightness" in text_lower:
+                return {"settings_action": "brightness_up", "parameter": "brightness"}
+            elif any(x in text_lower for x in ["turn down", "decrease", "lower"]) and "brightness" in text_lower:
+                return {"settings_action": "brightness_down", "parameter": "brightness"}
             elif "channel" in text_lower:
                 # try to extract channel number/name
                 m = re.search(r"(?:channel )(?P<ch>\w+)", text_lower)
@@ -406,8 +491,9 @@ class MultilingualHybridSystem:
         # Normalize Arabic text
         text_norm = self._normalize_arabic(text)
         
-        # Combined: "افتح <app> وابحث عن <query>"
-        comb = re.search(r"(?:افتح|شغل|ابدأ)\s+(.+?)\s+(?:و(?:ابحث عن|ابحث|دور على|ابحث))\s+(.+)$", text_norm)
+        # Combined: "افتح <app> و(ابحث عن|ابحث في) <query>"
+        # Support both attached 'و' and separated 'و ' forms and a few variant verbs
+        comb = re.search(r"(?:افتح|شغل|ابدأ)\s+(.+?)\s*(?:و\s*)?(?:ابحث(?:\s+عن|\s+في)?|دور\s+على|ابحث)\s+(.+)$", text_norm)
         if comb:
             app_raw = comb.group(1).strip()
             query_raw = comb.group(2).strip()
@@ -463,21 +549,32 @@ class MultilingualHybridSystem:
                         return {"search_query": match.group(1).strip()}
         
         elif intent == "settings":
-            # Arabic settings patterns
+            # Arabic settings patterns (try to extract action + parameter)
             if "اكتم" in text_norm or "صامت" in text_norm:
                 return {"settings_action": "mute"}
-            elif any(x in text_norm for x in ["زد", "زود", "ارفع", "اعلى"]):
-                if any(x in text_norm for x in ["صوت", "صوتي"]):
-                    return {"settings_action": "volume_up"}
-                elif "سطوع" in text_norm:
-                    return {"settings_action": "brightness_up"}
-            elif any(x in text_norm for x in ["خفف", "اقل", "انقص", "اخفض"]):
-                if any(x in text_norm for x in ["صوت", "صوتي"]):
-                    return {"settings_action": "volume_down"}
-                elif "سطوع" in text_norm:
-                    return {"settings_action": "brightness_down"}
-            elif "قناة" in text_norm:
-                return {"settings_action": "change_channel"}
+
+            # Volume increase keywords (many colloquial variants)
+            vol_up_keywords = ["زد", "زود", "ارفع", "اعلى", "علي", "على", "رفع", "زيد", "زِد"]
+            if any(k in text_norm for k in vol_up_keywords) and any(w in text_norm for w in ["صوت", "الصوت", "مستوى الصوت"]):
+                return {"settings_action": "volume_up", "parameter": "volume"}
+
+            # Volume decrease keywords
+            vol_down_keywords = ["خفف", "اقل", "انقص", "اخفض", "نقص", "انزل"]
+            if any(k in text_norm for k in vol_down_keywords) and any(w in text_norm for w in ["صوت", "الصوت", "مستوى الصوت"]):
+                return {"settings_action": "volume_down", "parameter": "volume"}
+
+            # Brightness
+            if any(k in text_norm for k in ["سطوع", "اضاء", "توهج"]) or any(k in text_norm for k in ["ارفع", "اخفض"]) and "سطوع" in text_norm:
+                if any(k in text_norm for k in ["زد", "ارفع", "اعلى"]):
+                    return {"settings_action": "brightness_up", "parameter": "brightness"}
+                else:
+                    return {"settings_action": "brightness_down", "parameter": "brightness"}
+
+            if "قناة" in text_norm:
+                # try to extract channel number/name
+                m = re.search(r"قناة\s+(\d+|\w+)", text_norm)
+                param = m.group(1) if m else None
+                return {"settings_action": "change_channel", **({"parameter": param} if param else {})}
         
         elif intent == "play_media":
             # Arabic media patterns

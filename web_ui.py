@@ -11,16 +11,31 @@ try:
 except Exception:
     from extract_entities import HybridIntentSystem as SystemClass
 
+# Try loading whichever STT implementation exists.  English-friendly
+# code was added later, so we attempt it first; fall back to the original
+# ArabicSTT class for compatibility.
+STT_AVAILABLE = False
+stt = None
 try:
-    from arabic_stt import ArabicSTT
+    from english_stt_optimized import EnglishSTT
+    STT_CLASS = EnglishSTT
     STT_AVAILABLE = True
-    print("✓ STT module loaded successfully")
+    print("✓ EnglishSTT module loaded successfully")
 except Exception as e:
-    STT_AVAILABLE = False
-    print(f"✗ Warning: STT not available: {e}")
-    print("  To enable voice features:")
-    print("  1. pip install openai-whisper torch")
-    print("  2. Ensure arabic_stt.py is in the same directory")
+    try:
+        from arabic_stt import ArabicSTT as STT_CLASS
+        STT_AVAILABLE = True
+        print("✓ ArabicSTT module loaded successfully")
+    except Exception as err:
+        STT_AVAILABLE = False
+        STT_CLASS = None
+        print(f"✗ Warning: STT not available: {err}")
+        print("  To enable voice features:")
+        print("  1. pip install openai-whisper torch")
+        print("  2. Ensure english_stt_optimized.py or arabic_stt.py is present")
+
+# STT instance will be created during app startup (below) once we know
+# which model size the user asked for via CLI arguments or configuration.
 
 try:
     from arabic_text_corrector import correct_arabic_text
@@ -55,15 +70,9 @@ AUTO_EXECUTE_VOICE = True     # Enable/disable auto-execution for voice
 AUTO_EXECUTE_TEXT = False     # Text requires manual checkbox (default)
 
 if STT_AVAILABLE:
-    try:
-        # Use "base" model - MUCH faster, still good accuracy
-        stt = ArabicSTT(model_size="base")
-        print("✓ Whisper model loaded successfully")
-        print("  Using 'base' model for optimal speed/accuracy balance")
-    except Exception as e:
-        STT_AVAILABLE = False
-        print(f"✗ Error loading Whisper model: {e}")
-        print("  Voice features disabled")
+  # Defer model instantiation until startup so the CLI --model argument can be used
+  stt = None
+  print("✓ STT module available; model will be loaded at startup with chosen size")
 
 history = []
 
@@ -946,16 +955,28 @@ if __name__ == '__main__':
                        help='Whisper model size (base=recommended for speed/accuracy)')
     args = parser.parse_args()
     
+    # If STT module was imported successfully, instantiate the model now using CLI arg
+    if STT_AVAILABLE and STT_CLASS is not None:
+      try:
+        stt = STT_CLASS(model_size=args.model)
+        cls_name = STT_CLASS.__name__
+        print(f"✓ Whisper model loaded successfully ({cls_name})")
+        print(f"  Using '{args.model}' model for speed/accuracy balance")
+      except Exception as e:
+        STT_AVAILABLE = False
+        stt = None
+        print(f"✗ Error loading Whisper model: {e}")
+        print("  Voice features disabled")
+
     print(f"Starting web UI on http://{args.host}:{args.port}")
     print(f"STT Available: {STT_AVAILABLE}")
     if STT_AVAILABLE:
-        print(f"Model: {args.model}")
-        print("Voice input and audio file upload enabled")
-        print("\nTips for best results:")
-        print("  • Speak clearly in a quiet environment")
-        print("  • Use complete phrases (e.g., 'افتح يوتيوب' or 'open youtube')")
-        print("  • Wait 2-4 seconds for processing")
-        print("  • Check transcription if intent seems wrong")
+      print("Voice input and audio file upload enabled")
+      print("\nTips for best results:")
+      print("  • Speak clearly in a quiet environment")
+      print("  • Use complete phrases (e.g., 'افتح يوتيوب' or 'open youtube')")
+      print("  • Wait 2-4 seconds for processing")
+      print("  • Check transcription if intent seems wrong")
     else:
         print("Text input only - install dependencies for voice features:")
         print("  pip install openai-whisper torch torchaudio")
