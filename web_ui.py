@@ -8,8 +8,21 @@ import re
 try:
     # Prefer multilingual system if available
     from extract_entities import MultilingualHybridSystem as SystemClass
-except Exception:
-    from extract_entities import HybridIntentSystem as SystemClass
+    SYSTEM_AVAILABLE = True
+except Exception as e:
+    try:
+        from extract_entities import HybridIntentSystem as SystemClass
+        SYSTEM_AVAILABLE = True
+    except Exception as err:
+        # If transformers or other dependencies are missing, fall back to a dummy system.
+        SYSTEM_AVAILABLE = False
+        print(f"✗ Intent extraction system not available: {err}")
+
+        class _DummySystem:
+            def process_query(self, query):
+                return {'intent': 'unknown', 'confidence': 0.0, 'entities': {}, 'language': 'en'}
+        
+        SystemClass = _DummySystem
 
 # Try loading whichever STT implementation exists.  English-friendly
 # code was added later, so we attempt it first; fall back to the original
@@ -34,8 +47,10 @@ except Exception as e:
         print("  1. pip install openai-whisper torch")
         print("  2. Ensure english_stt_optimized.py or arabic_stt.py is present")
 
-# STT instance will be created during app startup (below) once we know
-# which model size the user asked for via CLI arguments or configuration.
+# STT instance will be created lazily on first request.
+# Configuration comes from environment variables (useful for Docker).
+MODEL = os.getenv('MODEL', 'base')
+STT_MODE = os.getenv('STT_MODE', 'auto').lower()  # auto/cpu/gpu
 
 try:
     from arabic_text_corrector import correct_arabic_text
@@ -45,9 +60,39 @@ except Exception as e:
     CORRECTOR_AVAILABLE = False
     print(f"✗ Arabic corrector not available: {e}")
     print("  Transcription errors may affect accuracy")
-    # Fallback corrector
+
     def correct_arabic_text(text, debug=False):
         return text
+
+
+def _resolve_stt_device():
+    """Resolve device based on STT_MODE and system GPU availability."""
+    if STT_MODE == 'cpu':
+        return 'cpu'
+    if STT_MODE == 'gpu':
+        return 'cuda'
+
+    # auto mode: let whisper decide (CUDA if available)
+    return None
+
+
+def get_stt():
+    """Return a initialized STT instance, or None if unavailable."""
+    global stt
+
+    if not STT_AVAILABLE or STT_CLASS is None:
+        return None
+
+    if stt is None:
+        device = _resolve_stt_device()
+        try:
+            stt = STT_CLASS(model_size=MODEL, device=device)
+            print(f"✓ Initialized STT model={MODEL} device={device or 'auto'}")
+        except Exception as e:
+            print(f"✗ Failed to initialize STT: {e}")
+            stt = None
+
+    return stt
 
 try:
     from command_executer import CommandExecutor
@@ -677,8 +722,9 @@ def index():
 
 @app.route('/process_audio', methods=['POST'])
 def process_audio():
-    if not STT_AVAILABLE:
-        return jsonify({'error': 'STT not available'}), 400
+    stt_instance = get_stt()
+    if stt_instance is None:
+        return jsonify({'error': 'STT is not initialized or not available'}), 503
     
     if 'audio' not in request.files:
         return jsonify({'error': 'No audio file provided'}), 400
@@ -701,7 +747,7 @@ def process_audio():
         print("Step 1: Quick language detection...")
         
         # Very fast transcription just to detect language
-        quick_result = stt.transcribe_file(
+        quick_result = stt_instance.transcribe_file(
             tmp_path,
             language=None,
             beam_size=1,  # Fast
@@ -823,7 +869,10 @@ def process_audio():
                 os.unlink(tmp_path)
             except:
                 pass
-        return jsonify({'error': str(e)}), 500
+        return jsonify({
+            'error': str(e),
+            'trace': traceback.format_exc()
+        }), 500
 
 @app.route('/api/execute_only', methods=['POST'])
 def api_execute_only():
@@ -914,9 +963,10 @@ def api_execute():
 @app.route('/api/transcribe', methods=['POST'])
 def api_transcribe():
     """API endpoint for audio transcription only"""
-    if not STT_AVAILABLE:
-        return jsonify({'error': 'STT not available'}), 400
-    
+    stt_instance = get_stt()
+    if stt_instance is None:
+        return jsonify({'error': 'STT is not initialized or not available'}), 503
+
     if 'audio' not in request.files:
         return jsonify({'error': 'No audio file provided'}), 400
     
@@ -927,7 +977,7 @@ def api_transcribe():
             audio_file.save(tmp_file.name)
             tmp_path = tmp_file.name
         
-        result = stt.transcribe_file(tmp_path, language=None, beam_size=3, best_of=3)
+        result = stt_instance.transcribe_file(tmp_path, language=None, beam_size=3, best_of=3)
         transcription = result['text'].strip()
         detected_lang = detect_language_from_audio_text(transcription)
         
@@ -939,7 +989,111 @@ def api_transcribe():
         })
         
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        import traceback
+        return jsonify({
+            'error': str(e),
+            'trace': traceback.format_exc()
+        }), 500
+
+
+def _build_openapi_spec():
+    """Build a minimal OpenAPI 3.0 spec for the running API."""
+    host = request.host
+    scheme = 'https' if request.is_secure else 'http'
+    base_url = f"{scheme}://{host}"
+
+    return {
+        "openapi": "3.0.0",
+        "info": {
+            "title": "Voice Intent API",
+            "version": "1.0.0",
+            "description": "API for speech transcription and intent extraction."
+        },
+        "servers": [{"url": base_url}],
+        "paths": {
+            "/process_audio": {
+                "post": {
+                    "summary": "Upload audio and get intent + entities",
+                    "requestBody": {
+                        "content": {
+                            "multipart/form-data": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "audio": {"type": "string", "format": "binary"},
+                                        "auto_execute": {"type": "boolean"},
+                                        "confidence_threshold": {"type": "number"}
+                                    },
+                                    "required": ["audio"]
+                                }
+                            }
+                        }
+                    },
+                    "responses": {
+                        "200": {"description": "Intent extraction result"},
+                        "400": {"description": "Bad request"},
+                        "500": {"description": "Server error"}
+                    }
+                }
+            },
+            "/api/transcribe": {
+                "post": {
+                    "summary": "Transcribe uploaded audio",
+                    "requestBody": {
+                        "content": {
+                            "multipart/form-data": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "audio": {"type": "string", "format": "binary"}
+                                    },
+                                    "required": ["audio"]
+                                }
+                            }
+                        }
+                    },
+                    "responses": {
+                        "200": {"description": "Transcription result"},
+                        "400": {"description": "Bad request"},
+                        "500": {"description": "Server error"}
+                    }
+                }
+            }
+        }
+    }
+
+
+@app.route('/openapi.json')
+def openapi_json():
+    """Return OpenAPI spec in JSON."""
+    return jsonify(_build_openapi_spec())
+
+
+@app.route('/docs')
+def swagger_ui():
+    """Serve a Swagger UI page for the OpenAPI spec."""
+    html = """<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=\"utf-8\" />
+    <title>Voice Intent API Docs</title>
+    <link rel=\"stylesheet\" href=\"https://unpkg.com/swagger-ui-dist@4/swagger-ui.css\" />
+  </head>
+  <body>
+    <div id=\"swagger-ui\"></div>
+    <script src=\"https://unpkg.com/swagger-ui-dist@4/swagger-ui-bundle.js\"></script>
+    <script>
+      SwaggerUIBundle({
+        url: '/openapi.json',
+        dom_id: '#swagger-ui',
+        presets: [SwaggerUIBundle.presets.apis],
+        layout: 'BaseLayout'
+      });
+    </script>
+  </body>
+</html>"""
+    return html
+
 
 @app.route('/clear')
 def clear_history():
@@ -955,18 +1109,18 @@ if __name__ == '__main__':
                        help='Whisper model size (base=recommended for speed/accuracy)')
     args = parser.parse_args()
     
-    # If STT module was imported successfully, instantiate the model now using CLI arg
-    if STT_AVAILABLE and STT_CLASS is not None:
-      try:
-        stt = STT_CLASS(model_size=args.model)
-        cls_name = STT_CLASS.__name__
+    # Apply CLI override to model selection (overrides MODEL env var)
+    MODEL = args.model
+
+    # Attempt to initialize STT lazily. Any failure will be reported in get_stt().
+    stt_instance = get_stt()
+    if stt_instance is not None:
+        cls_name = STT_CLASS.__name__ if STT_CLASS is not None else 'Unknown'
         print(f"✓ Whisper model loaded successfully ({cls_name})")
-        print(f"  Using '{args.model}' model for speed/accuracy balance")
-      except Exception as e:
+        print(f"  Using '{MODEL}' model for speed/accuracy balance")
+    else:
         STT_AVAILABLE = False
-        stt = None
-        print(f"✗ Error loading Whisper model: {e}")
-        print("  Voice features disabled")
+        print("✗ STT initialization failed; voice features disabled")
 
     print(f"Starting web UI on http://{args.host}:{args.port}")
     print(f"STT Available: {STT_AVAILABLE}")
