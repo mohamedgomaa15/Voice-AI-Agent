@@ -157,3 +157,38 @@ Examples:
 2. "Open YouTube and search football highlights" → launches YouTube
 3. "Turn subtitles on" → subtitles enabled
 4. "What are critics saying about the new Batman movie?" → response summary
+
+
+---
+
+## 📊 Evaluating the STT Component
+
+The `english_stt_optimized.py` module includes a helper method
+`EnglishSTT.evaluate_dataset()` which computes **accuracy (via WER)** and
+**latency** for a given set of audio samples and their reference
+transcripts.  You can provide a simple dictionary in Python or load a CSV
+with two columns (`audio`, `reference`).
+
+```python
+from english_stt_optimized import EnglishSTT
+
+stt = EnglishSTT(model_size="base")
+# dataset = {"file1.wav": "hello world", ...}
+results = stt.evaluate_dataset(dataset)
+print(results["average_accuracy"])
+print(results["total_latency"])
+```
+
+You can also transcribe a **single audio file** and compute its accuracy
+by passing the expected text as a `reference` parameter:
+
+```python
+trans = stt.transcribe_file("audio.wav", reference="expected text")
+print(trans["text"], trans.get("accuracy"))
+```
+
+
+A small evaluation example is already shown in the `main()` function of
+`english_stt_optimized.py` (look for the `sample_dataset` dictionary).
+Simply replace the placeholder entries with your own audio files.
+
