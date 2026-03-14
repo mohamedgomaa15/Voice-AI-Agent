@@ -7,295 +7,1183 @@
   },
   {
     "idx": 2,
-    "example": "search for cooking competition shows",
+    "example": "search for cooking shows",
     "classifier_out": "search",
-    "llm_out": "{\"search_query\":\"cooking competition shows\"}"
+    "llm_out": "{\"search_query\":\"cooking shows\"}"
   },
   {
     "idx": 3,
-    "example": "look for movies about artificial intelligence",
+    "example": "look for psychological horror films",
     "classifier_out": "search",
-    "llm_out": "{\"search_query\":\"artificial intelligence movies\"}"
+    "llm_out": "{\"search_query\":\"psychological horror films\"}"
   },
   {
     "idx": 4,
+    "example": "I want to see historical war movies",
+    "classifier_out": "search",
+    "llm_out": "{\"search_query\":\"historical war movies\"}"
+  },
+  {
+    "idx": 5,
+    "example": "find films directed by Steven Spielberg",
+    "classifier_out": "search",
+    "llm_out": "{\"search_query\":\"films directed by Steven Spielberg\"}"
+  },
+  {
+    "idx": 6,
+    "example": "show me romantic dramas",
+    "classifier_out": "search",
+    "llm_out": "{\"search_query\":\"romantic dramas\"}"
+  },
+  {
+    "idx": 7,
+    "example": "search for documentaries about the ocean",
+    "classifier_out": "search",
+    "llm_out": "{\"search_query\":\"documentaries about the ocean\"}"
+  },
+  {
+    "idx": 8,
+    "example": "find something funny to watch right now",
+    "classifier_out": "search",
+    "llm_out": "{\"search_query\":\"something funny\"}"
+  },
+  {
+    "idx": 9,
+    "example": "look for movies about artificial intelligence",
+    "classifier_out": "search",
+    "llm_out": "{\"search_query\":\"movies about artificial intelligence\"}"
+  },
+  {
+    "idx": 10,
     "example": "search Martin Scorsese movies",
     "classifier_out": "search",
     "llm_out": "{\"search_query\":\"Martin Scorsese movies\"}"
   },
   {
-    "idx": 5,
+    "idx": 11,
+    "example": "find cartoons for toddlers",
+    "classifier_out": "search",
+    "llm_out": "{\"search_query\":\"cartoons for toddlers\"}"
+  },
+  {
+    "idx": 12,
+    "example": "search for fitness workout videos",
+    "classifier_out": "search",
+    "llm_out": "{\"search_query\":\"fitness workout videos\"}"
+  },
+  {
+    "idx": 13,
+    "example": "find movies from the 2000s",
+    "classifier_out": "search",
+    "llm_out": "{\"search_query\":\"movies from the 2000s\"}"
+  },
+  {
+    "idx": 14,
+    "example": "look for espionage thrillers",
+    "classifier_out": "search",
+    "llm_out": "{\"search_query\":\"espionage thrillers\"}"
+  },
+  {
+    "idx": 15,
+    "example": "search for inspirational movies",
+    "classifier_out": "search",
+    "llm_out": "{\"search_query\":\"inspirational movies\"}"
+  },
+  {
+    "idx": 16,
+    "example": "find vampire and werewolf content",
+    "classifier_out": "search",
+    "llm_out": "{\"search_query\":\"vampire and werewolf content\"}"
+  },
+  {
+    "idx": 17,
+    "example": "show me Scandinavian crime dramas",
+    "classifier_out": "search",
+    "llm_out": "{\"search_query\":\"Scandinavian crime dramas\"}"
+  },
+  {
+    "idx": 18,
+    "example": "search for movies with unexpected endings",
+    "classifier_out": "search",
+    "llm_out": "{\"search_query\":\"movies with unexpected endings\"}"
+  },
+  {
+    "idx": 19,
     "example": "look for adventure films for family",
     "classifier_out": "search",
     "llm_out": "{\"search_query\":\"adventure films for family\"}"
   },
   {
-    "idx": 6,
+    "idx": 20,
     "example": "search dystopian future shows",
     "classifier_out": "search",
     "llm_out": "{\"search_query\":\"dystopian future shows\"}"
   },
   {
-    "idx": 7,
+    "idx": 21,
     "example": "find movies about the mafia",
     "classifier_out": "search",
-    "llm_out": "{\"search_query\":\"movies about mafia\"}"
+    "llm_out": "{\"search_query\":\"movies about the mafia\"}"
   },
   {
-    "idx": 8,
+    "idx": 22,
+    "example": "show me courtroom legal dramas",
+    "classifier_out": "search",
+    "llm_out": "{\"search_query\":\"courtroom legal dramas\"}"
+  },
+  {
+    "idx": 23,
+    "example": "search for wildlife nature shows",
+    "classifier_out": "search",
+    "llm_out": "{\"search_query\":\"wildlife nature shows\"}"
+  },
+  {
+    "idx": 24,
+    "example": "find movies with strong female leads",
+    "classifier_out": "search",
+    "llm_out": "{\"search_query\":\"movies with strong female leads\"}"
+  },
+  {
+    "idx": 25,
+    "example": "look for animated disney classics",
+    "classifier_out": "search",
+    "llm_out": "{\"search_query\":\"animated Disney classics\"}"
+  },
+  {
+    "idx": 26,
+    "example": "search zombie apocalypse series",
+    "classifier_out": "search",
+    "llm_out": "{\"search_query\":\"zombie apocalypse series\"}"
+  },
+  {
+    "idx": 27,
+    "example": "find movies about hackers",
+    "classifier_out": "search",
+    "llm_out": "{\"search_query\":\"movies about hackers\"}"
+  },
+  {
+    "idx": 28,
+    "example": "show me food travel shows",
+    "classifier_out": "search",
+    "llm_out": "{\"search_query\":\"food travel shows\"}"
+  },
+  {
+    "idx": 29,
+    "example": "search for Oscar best picture winners",
+    "classifier_out": "search",
+    "llm_out": "{\"search_query\":\"Oscar best picture winners\"}"
+  },
+  {
+    "idx": 30,
+    "example": "look for romantic comedy series",
+    "classifier_out": "search",
+    "llm_out": "{\"search_query\":\"romantic comedy series\"}"
+  },
+  {
+    "idx": 31,
+    "example": "search medical drama shows",
+    "classifier_out": "search",
+    "llm_out": "{\"search_query\":\"medical drama shows\"}"
+  },
+  {
+    "idx": 32,
+    "example": "find movies starring Denzel Washington",
+    "classifier_out": "search",
+    "llm_out": "{\"search_query\":\"movies starring Denzel Washington\"}"
+  },
+  {
+    "idx": 33,
     "example": "show me crime investigation shows",
     "classifier_out": "search",
     "llm_out": "{\"search_query\":\"crime investigation shows\"}"
   },
   {
-    "idx": 9,
+    "idx": 34,
     "example": "search for martial arts action films",
     "classifier_out": "search",
     "llm_out": "{\"search_query\":\"martial arts action films\"}"
   },
   {
-    "idx": 10,
+    "idx": 35,
     "example": "find beach vacation movies",
     "classifier_out": "search",
     "llm_out": "{\"search_query\":\"beach vacation movies\"}"
   },
   {
-    "idx": 11,
+    "idx": 36,
+    "example": "look for animal shows",
+    "classifier_out": "search",
+    "llm_out": "{\"search_query\":\"animal shows\"}"
+  },
+  {
+    "idx": 37,
+    "example": "search thriller movies with plot twists",
+    "classifier_out": "search",
+    "llm_out": "{\"search_query\":\"thriller movies with plot twists\"}"
+  },
+  {
+    "idx": 38,
+    "example": "third season of Game of Thrones",
+    "classifier_out": "search",
+    "llm_out": "{\"search_query\":\"Game of Thrones third season\"}"
+  },
+  {
+    "idx": 39,
+    "example": "I want to watch top movie in 2020",
+    "classifier_out": "search",
+    "llm_out": "{\"search_query\":\"top movie in 2020\"}"
+  },
+  {
+    "idx": 40,
+    "example": "search for kids content",
+    "classifier_out": "search",
+    "llm_out": "{\"search_query\":\"kids content\"}"
+  },
+  {
+    "idx": 41,
     "example": "launch my Netflix app",
     "classifier_out": "open_app",
     "llm_out": "{\"app_name\":\"Netflix\"}"
   },
   {
-    "idx": 12,
+    "idx": 42,
     "example": "start the YouTube application",
     "classifier_out": "open_app",
     "llm_out": "{\"app_name\":\"YouTube\"}"
   },
   {
-    "idx": 13,
+    "idx": 43,
     "example": "open Prime Video please",
     "classifier_out": "open_app",
     "llm_out": "{\"app_name\":\"Prime Video\"}"
   },
   {
-    "idx": 14,
+    "idx": 44,
     "example": "go to my Disney app",
     "classifier_out": "open_app",
     "llm_out": "{\"app_name\":\"Disney\"}"
   },
   {
-    "idx": 15,
+    "idx": 45,
     "example": "pull up the Hulu application",
     "classifier_out": "open_app",
     "llm_out": "{\"app_name\":\"Hulu\"}"
   },
   {
-    "idx": 16,
+    "idx": 46,
+    "example": "activate my HBO subscription",
+    "classifier_out": "open_app",
+    "llm_out": "{\"app_name\":\"HBO\"}"
+  },
+  {
+    "idx": 47,
+    "example": "bring up my Spotify account",
+    "classifier_out": "open_app",
+    "llm_out": "{\"app_name\":\"Spotify\"}"
+  },
+  {
+    "idx": 48,
+    "example": "switch over to Apple TV",
+    "classifier_out": "open_app",
+    "llm_out": "{\"app_name\":\"Apple TV\"}"
+  },
+  {
+    "idx": 49,
+    "example": "load up YouTube",
+    "classifier_out": "open_app",
+    "llm_out": "{\"app_name\":\"YouTube\"}"
+  },
+  {
+    "idx": 50,
     "example": "I'd like to watch Netflix",
     "classifier_out": "open_app",
     "llm_out": "{\"app_name\":\"Netflix\"}"
   },
   {
-    "idx": 17,
+    "idx": 51,
     "example": "take me to my YouTube",
     "classifier_out": "open_app",
     "llm_out": "{\"app_name\":\"YouTube\"}"
   },
   {
-    "idx": 18,
+    "idx": 52,
     "example": "open the streaming service",
     "classifier_out": "open_app",
-    "llm_out": "{\"app_name\":\"streaming service\"}"
+    "llm_out": "{\"app_name\":\"Streaming Service\"}"
   },
   {
-    "idx": 19,
+    "idx": 53,
     "example": "launch video content app",
     "classifier_out": "open_app",
-    "llm_out": "{\"app_name\":\"video content app\"}"
+    "llm_out": "{\"app_name\":\"Video Content\"}"
   },
   {
-    "idx": 20,
+    "idx": 54,
     "example": "start my music player",
     "classifier_out": "open_app",
-    "llm_out": "{\"app_name\":\"music player\"}"
+    "llm_out": "{\"app_name\":\"Music Player\"}"
   },
   {
-    "idx": 21,
+    "idx": 55,
+    "example": "go to video prime",
+    "classifier_out": "open_app",
+    "llm_out": "{\"app_name\":\"Prime Vedio\"}"
+  },
+  {
+    "idx": 56,
+    "example": "So exited open Youtube for me",
+    "classifier_out": "open_app",
+    "llm_out": "{\"app_name\":\"Youtube\"}"
+  },
+  {
+    "idx": 57,
+    "example": "fire up Netflix now",
+    "classifier_out": "open_app",
+    "llm_out": "{\"app_name\":\"Netflix\"}"
+  },
+  {
+    "idx": 58,
+    "example": "get the YouTube app running",
+    "classifier_out": "open_app",
+    "llm_out": "{\"app_name\":\"YouTube\"}"
+  },
+  {
+    "idx": 59,
+    "example": "run Prime Video service",
+    "classifier_out": "open_app",
+    "llm_out": "{\"app_name\":\"Prime Video\"}"
+  },
+  {
+    "idx": 60,
+    "example": "let me visit Amazon Prime",
+    "classifier_out": "open_app",
+    "llm_out": "{\"app_name\":\"Amazon Prime\"}"
+  },
+  {
+    "idx": 61,
+    "example": "put on Netflix",
+    "classifier_out": "open_app",
+    "llm_out": "{\"app_name\":\"Netflix\"}"
+  },
+  {
+    "idx": 62,
+    "example": "show me YouTube",
+    "classifier_out": "open_app",
+    "llm_out": "{\"app_name\":\"YouTube\"}"
+  },
+  {
+    "idx": 63,
+    "example": "bring me Prime Video",
+    "classifier_out": "open_app",
+    "llm_out": "{\"app_name\":\"Prime Video\"}"
+  },
+  {
+    "idx": 64,
+    "example": "open up HBO",
+    "classifier_out": "open_app",
+    "llm_out": "{\"app_name\":\"HBO\"}"
+  },
+  {
+    "idx": 65,
+    "example": "get Hulu started",
+    "classifier_out": "open_app",
+    "llm_out": "{\"app_name\":\"Hulu\"}"
+  },
+  {
+    "idx": 66,
+    "example": "launch Spotify music",
+    "classifier_out": "open_app",
+    "llm_out": "{\"app_name\":\"Spotify\"}"
+  },
+  {
+    "idx": 67,
+    "example": "start Apple TV app",
+    "classifier_out": "open_app",
+    "llm_out": "{\"app_name\":\"Apple TV\"}"
+  },
+  {
+    "idx": 68,
+    "example": "open streaming service my assistant",
+    "classifier_out": "open_app",
+    "llm_out": "{\"app_name\":\"Streaming Service\"}"
+  },
+  {
+    "idx": 69,
+    "example": "launch that video Prime app",
+    "classifier_out": "open_app",
+    "llm_out": "{\"app_name\":\"Video Prime\"}"
+  },
+  {
+    "idx": 70,
+    "example": "start streaming service",
+    "classifier_out": "open_app",
+    "llm_out": "{\"app_name\":\"Streaming Service\"}"
+  },
+  {
+    "idx": 71,
+    "example": "Paramount Plus",
+    "classifier_out": "open_app",
+    "llm_out": "{\"app_name\":\"Paramount plus\"}"
+  },
+  {
+    "idx": 72,
+    "example": "let me use Netflix",
+    "classifier_out": "open_app",
+    "llm_out": "{\"app_name\":\"Netflix\"}"
+  },
+  {
+    "idx": 73,
+    "example": "I want YouTube on",
+    "classifier_out": "open_app",
+    "llm_out": "{\"app_name\":\"YouTube\"}"
+  },
+  {
+    "idx": 74,
+    "example": "give me Prime Video",
+    "classifier_out": "open_app",
+    "llm_out": "{\"app_name\":\"Prime Video\"}"
+  },
+  {
+    "idx": 75,
+    "example": "show Disney Plus",
+    "classifier_out": "open_app",
+    "llm_out": "{\"app_name\":\"Disney\"}"
+  },
+  {
+    "idx": 76,
+    "example": "boot up Netflix",
+    "classifier_out": "open_app",
+    "llm_out": "{\"app_name\":\"Netflix\"}"
+  },
+   {
+    "idx": 77,
+    "example": "I want to open my best app for streaming, streaming service",
+    "classifier_out": "Streaming Service",
+    "llm_out": "{\"app_name\":\"Netflix\"}"
+  },
+   {
+    "idx": 78,
+    "example": "Youtube, open it for me",
+    "classifier_out": "open_app",
+    "llm_out": "{\"app_name\":\"YouTube\"}"
+  },
+  {
+    "idx": 79,
+    "example": "Could you open Netflix for me.",
+    "classifier_out": "open_app",
+    "llm_out": "{\"app_name\":\"Netflix\"}"
+  },
+  {
+    "idx": 80,
+    "example": "watching Video Prime.",
+    "classifier_out": "open_app",
+    "llm_out": "{\"app_name\":\"Video Prime\"}"
+  },
+  {
+    "idx": 81,
     "example": "open Netflix and find action thrillers",
     "classifier_out": "open_app_and_search",
     "llm_out": "{\"app_name\":\"Netflix\",\"search_query\":\"action thrillers\"}"
   },
   {
-    "idx": 22,
+    "idx": 82,
     "example": "launch YouTube and search cooking recipes",
     "classifier_out": "open_app_and_search",
     "llm_out": "{\"app_name\":\"YouTube\",\"search_query\":\"cooking recipes\"}"
   },
   {
-    "idx": 23,
+    "idx": 83,
     "example": "go to Prime Video and look for drama series",
     "classifier_out": "open_app_and_search",
     "llm_out": "{\"app_name\":\"Prime Video\",\"search_query\":\"drama series\"}"
   },
   {
-    "idx": 24,
+    "idx": 84,
     "example": "start Disney Plus and find animated movies",
     "classifier_out": "open_app_and_search",
     "llm_out": "{\"app_name\":\"Disney Plus\",\"search_query\":\"animated movies\"}"
   },
   {
-    "idx": 25,
+    "idx": 85,
+    "example": "open Hulu and search for sitcoms",
+    "classifier_out": "open_app_and_search",
+    "llm_out": "{\"app_name\":\"Hulu\",\"search_query\":\"sitcoms\"}"
+  },
+  {
+    "idx": 86,
     "example": "launch Netflix and look for mystery shows",
     "classifier_out": "open_app_and_search",
     "llm_out": "{\"app_name\":\"Netflix\",\"search_query\":\"mystery shows\"}"
   },
   {
-    "idx": 26,
+    "idx": 87,
     "example": "go to YouTube and find fitness videos",
     "classifier_out": "open_app_and_search",
     "llm_out": "{\"app_name\":\"YouTube\",\"search_query\":\"fitness videos\"}"
   },
   {
-    "idx": 27,
+    "idx": 88,
     "example": "start Spotify and play chill music",
     "classifier_out": "open_app_and_search",
     "llm_out": "{\"app_name\":\"Spotify\",\"search_query\":\"chill music\"}"
   },
   {
-    "idx": 28,
+    "idx": 89,
     "example": "open Prime Video and search for Brad Pitt films",
     "classifier_out": "open_app_and_search",
     "llm_out": "{\"app_name\":\"Prime Video\",\"search_query\":\"Brad Pitt films\"}"
   },
   {
-    "idx": 29,
+    "idx": 90,
+    "example": "launch HBO Max and find fantasy series",
+    "classifier_out": "open_app_and_search",
+    "llm_out": "{\"app_name\":\"HBO Max\",\"search_query\":\"fantasy series\"}"
+  },
+  {
+    "idx": 91,
+    "example": "Netflix and search Korean thrillers",
+    "classifier_out": "open_app_and_search",
+    "llm_out": "{\"app_name\":\"Netflix\",\"search_query\":\"Korean thrillers\"}"
+  },
+  {
+    "idx": 92,
     "example": "YouTube find meditation videos",
     "classifier_out": "open_app_and_search",
     "llm_out": "{\"app_name\":\"YouTube\",\"search_query\":\"meditation videos\"}"
   },
   {
-    "idx": 30,
+    "idx": 93,
     "example": "open Disney and look for Marvel series",
     "classifier_out": "open_app_and_search",
     "llm_out": "{\"app_name\":\"Disney\",\"search_query\":\"Marvel series\"}"
   },
   {
-    "idx": 31,
+    "idx": 94,
+    "example": "go to Netflix and search crime documentaries",
+    "classifier_out": "open_app_and_search",
+    "llm_out": "{\"app_name\":\"Netflix\",\"search_query\":\"crime documentaries\"}"
+  },
+  {
+    "idx": 95,
+    "example": "launch Prime and find western movies",
+    "classifier_out": "open_app_and_search",
+    "llm_out": "{\"app_name\":\"Prime\",\"search_query\":\"western movies\"}"
+  },
+  {
+    "idx": 96,
+    "example": "start YouTube and search makeup tutorials",
+    "classifier_out": "open_app_and_search",
+    "llm_out": "{\"app_name\":\"YouTube\",\"search_query\":\"makeup tutorials\"}"
+  },
+  {
+    "idx": 97,
+    "example": "Open Hulu then find tech program",
+    "classifier_out": "open_app_and_search",
+    "llm_out": "{\"app_name\":\"Hulu\",\"search_query\":\"tech program\"}"
+  },
+  {
+    "idx": 98,
+    "example": "go into Netflix and search historical dramas",
+    "classifier_out": "open_app_and_search",
+    "llm_out": "{\"app_name\":\"Netflix\",\"search_query\":\"historical dramas\"}"
+  },
+  {
+    "idx": 99,
+    "example": "launch Apple TV and find Morning Show",
+    "classifier_out": "open_app_and_search",
+    "llm_out": "{\"app_name\":\"Apple TV\",\"search_query\":\"Morning Show\"}"
+  },
+  {
+    "idx": 100,
+    "example": "open Spotify and search jazz music",
+    "classifier_out": "open_app_and_search",
+    "llm_out": "{\"app_name\":\"Spotify\",\"search_query\":\"jazz music\"}"
+  },
+  {
+    "idx": 101,
+    "example": "start Netflix and look for binge-worthy series",
+    "classifier_out": "open_app_and_search",
+    "llm_out": "{\"app_name\":\"Netflix\",\"search_query\":\"binge-worthy series\"}"
+  },
+  {
+    "idx": 102,
+    "example": "go to Prime Video and find suspense movies",
+    "classifier_out": "open_app_and_search",
+    "llm_out": "{\"app_name\":\"Prime Video\",\"search_query\":\"suspense movies\"}"
+  },
+  {
+    "idx": 103,
+    "example": "launch Disney Plus and search National Geographic",
+    "classifier_out": "open_app_and_search",
+    "llm_out": "{\"app_name\":\"Disney Plus\",\"search_query\":\"National Geographic\"}"
+  },
+  {
+    "idx": 104,
+    "example": "open YouTube and find DIY tutorials",
+    "classifier_out": "open_app_and_search",
+    "llm_out": "{\"app_name\":\"YouTube\",\"search_query\":\"DIY tutorials\"}"
+  },
+  {
+    "idx": 105,
+    "example": "start Hulu and search The Handmaids Tale",
+    "classifier_out": "open_app_and_search",
+    "llm_out": "{\"app_name\":\"Hulu\",\"search_query\":\"The Handmaids Tale\"}"
+  },
+  {
+    "idx": 106,
+    "example": "Netflix search for zombie shows",
+    "classifier_out": "open_app_and_search",
+    "llm_out": "{\"app_name\":\"Netflix\",\"search_query\":\"zombie shows\"}"
+  },
+  {
+    "idx": 107,
+    "example": "YouTube find tech reviews",
+    "classifier_out": "open_app_and_search",
+    "llm_out": "{\"app_name\":\"YouTube\",\"search_query\":\"tech reviews\"}"
+  },
+  {
+    "idx": 108,
+    "example": "open Prime and look for Christopher Nolan",
+    "classifier_out": "open_app_and_search",
+    "llm_out": "{\"app_name\":\"Prime\",\"search_query\":\"Christopher Nolan\"}"
+  },
+  {
+    "idx": 109,
+    "example": "launch Disney and find classic animations",
+    "classifier_out": "open_app_and_search",
+    "llm_out": "{\"app_name\":\"Disney\",\"search_query\":\"classic animations\"}"
+  },
+  {
+    "idx": 110,
+    "example": "go to Netflix and search standup comedy",
+    "classifier_out": "open_app_and_search",
+    "llm_out": "{\"app_name\":\"Netflix\",\"search_query\":\"standup comedy\"}"
+  },
+  {
+    "idx": 111,
+    "example": "start Prime Video and look for award winners",
+    "classifier_out": "open_app_and_search",
+    "llm_out": "{\"app_name\":\"Prime Video\",\"search_query\":\"award winners\"}"
+  },
+  {
+    "idx": 112,
+    "example": "open YouTube and find travel documentaries",
+    "classifier_out": "open_app_and_search",
+    "llm_out": "{\"app_name\":\"YouTube\",\"search_query\":\"travel documentaries\"}"
+  },
+  {
+    "idx": 113,
+    "example": "launch Netflix and search romantic movies",
+    "classifier_out": "open_app_and_search",
+    "llm_out": "{\"app_name\":\"Netflix\",\"search_query\":\"romantic movies\"}"
+  },
+  {
+    "idx": 114,
+    "example": "go to Hulu and find animated series",
+    "classifier_out": "open_app_and_search",
+    "llm_out": "{\"app_name\":\"Hulu\",\"search_query\":\"animated series\"}"
+  },
+  {
+    "idx": 115,
+    "example": "start Disney Plus and search Mandalorian",
+    "classifier_out": "open_app_and_search",
+    "llm_out": "{\"app_name\":\"Disney Plus\",\"search_query\":\"Mandalorian\"}"
+  },
+  {
+    "idx": 116,
+    "example": "open Netflix and look for foreign films",
+    "classifier_out": "open_app_and_search",
+    "llm_out": "{\"app_name\":\"Netflix\",\"search_query\":\"foreign films\"}"
+  },
+  {
+    "idx": 117,
+    "example": "launch YouTube and search guitar lessons",
+    "classifier_out": "open_app_and_search",
+    "llm_out": "{\"app_name\":\"YouTube\",\"search_query\":\"guitar lessons\"}"
+  },
+  {
+    "idx": 118,
+    "example": "go to Prime and find spy thrillers",
+    "classifier_out": "open_app_and_search",
+    "llm_out": "{\"app_name\":\"Prime\",\"search_query\":\"spy thrillers\"}"
+  },
+  {
+    "idx": 119,
+    "example": "start Netflix and search family movies",
+    "classifier_out": "open_app_and_search",
+    "llm_out": "{\"app_name\":\"Netflix\",\"search_query\":\"family movies\"}"
+  },
+  {
+    "idx": 120,
+    "example": "open HBO and find DC universe",
+    "classifier_out": "open_app_and_search",
+    "llm_out": "{\"app_name\":\"HBO\",\"search_query\":\"DC universe\"}"
+  },
+  {
+    "idx": 121,
     "example": "turn the volume up",
     "classifier_out": "settings",
     "llm_out": "{\"settings_action\":\"volume_up\"}"
   },
   {
-    "idx": 32,
+    "idx": 122,
     "example": "make the display brighter",
     "classifier_out": "settings",
     "llm_out": "{\"settings_action\":\"brightness_up\"}"
   },
   {
-    "idx": 33,
+    "idx": 123,
+    "example": "mute the tv",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"mute\"}"
+  },
+  {
+    "idx": 124,
     "example": "lower the audio",
     "classifier_out": "settings",
     "llm_out": "{\"settings_action\":\"volume_down\"}"
   },
   {
-    "idx": 34,
+    "idx": 125,
     "example": "reduce screen brightness",
     "classifier_out": "settings",
     "llm_out": "{\"settings_action\":\"brightness_down\"}"
   },
   {
-    "idx": 35,
+    "idx": 126,
     "example": "silence the TV",
     "classifier_out": "settings",
     "llm_out": "{\"settings_action\":\"mute\"}"
   },
   {
-    "idx": 36,
+    "idx": 127,
     "example": "unmute the audio",
     "classifier_out": "settings",
     "llm_out": "{\"settings_action\":\"unmute\"}"
   },
   {
-    "idx": 37,
+    "idx": 128,
+    "example": "switch to mute time",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"mute\"}"
+  },
+  {
+    "idx": 129,
+    "example": "turn off the sound",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"mute\"}"
+  },
+  {
+    "idx": 130,
     "example": "brighten the screen",
     "classifier_out": "settings",
     "llm_out": "{\"settings_action\":\"brightness_up\"}"
   },
   {
-    "idx": 38,
-    "example": "raise the volume level",
-    "classifier_out": "settings",
-    "llm_out": "{\"settings_action\":\"volume_up\"}"
-  },
-  {
-    "idx": 39,
-    "example": "modify audio options",
-    "classifier_out": "settings",
-    "llm_out": "{\"settings_action\":\"audio_option\"}"
-  },
-  {
-    "idx": 40,
+    "idx": 131,
     "example": "maximize volume",
     "classifier_out": "settings",
     "llm_out": "{\"settings_action\":\"volume_max\"}"
   },
   {
-    "idx": 41,
+    "idx": 132,
+    "example": "I want to increase sound",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"volume_up\"}"
+  },
+  {
+    "idx": 133,
+    "example": "make the sound louder",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"volume_up\"}"
+  },
+  {
+    "idx": 134,
+    "example": "increse the brightness",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"brightness_up\"}"
+  },
+  {
+    "idx": 135,
+    "example": "decrese screen brightness",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"brightness_down\"}"
+  },
+  {
+    "idx": 136,
+    "example": "active the muted tv",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"unmute\"}"
+  },
+  {
+    "idx": 137,
+    "example": "raise the volume level",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"volume_up\"}"
+  },
+  {
+    "idx": 138,
+    "example": "make the sound silent",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"mute\"}"
+  },
+  {
+    "idx": 139,
+    "example": "increase display contrast",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"brightness_up\"}"
+  },
+  {
+    "idx": 140,
+    "example": "reduce the volume",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"volume_down\"}"
+  },
+  {
+    "idx": 141,
+    "example": "turn brightness up",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"brightness_up\"}"
+  },
+  {
+    "idx": 142,
+    "example": "turn off the sound",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"mute\"}"
+  },
+  {
+    "idx": 143,
+    "example": "the sound is very high, decrese it please",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"volume_down\"}"
+  },
+  {
+    "idx": 144,
+    "example": "make the sound quieter",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"volume_down\"}"
+  },
+  {
+    "idx": 145,
+    "example": "increase the screen brightness",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"brightness_up\"}"
+  },
+  {
+    "idx": 146,
+    "example": "mute the sound",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"mute\"}"
+  },
+  {
+    "idx": 147,
+    "example": "turn on the sound",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"unmute\"}"
+  },
+  {
+    "idx": 148,
+    "example": "make the sound off",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"mute\"}"
+  },
+  {
+    "idx": 149,
+    "example": "decrese the tv sound",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"volume_down\"}"
+  },
+  {
+    "idx": 150,
+    "example": "pump up the volume",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"volume_up\"}"
+  },
+  {
+    "idx": 151,
+    "example": "dim the screen down",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"brightness_down\"}"
+  },
+  {
+    "idx": 152,
+    "example": "max the sound",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"volume_max\"}"
+  },
+  {
+    "idx": 153,
+    "example": "the volume is noisy, decrese it",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"volume_down\"}"
+  },
+  {
+    "idx": 154,
+    "example": "decrease audio level",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"volume_down\"}"
+  },
+  {
+    "idx": 155,
+    "example": "brighten display settings",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"brightness_up\"}"
+  },
+  {
+    "idx": 156,
+    "example": "shut up the tv",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"mute\"}"
+  },
+  {
+    "idx": 157,
+    "example": "increase sound level",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"volume_up\"}"
+  },
+  {
+    "idx": 158,
+    "example": "make the display up",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"brightness_up\"}"
+  },
+  {
+    "idx": 159,
+    "example": "make it without sound",
+    "classifier_out": "settings",
+    "llm_out": "{\"settings_action\":\"mute\"}"
+  },
+  {
+    "idx": 160,
+    "example": "what's the forecast today",
+    "classifier_out": "out_of_scope",
+    "llm_out": "I can help with searching for content, opening applications, and changing settings."
+  },
+  {
+    "idx": 161,
     "example": "make me laugh",
     "classifier_out": "out_of_scope",
     "llm_out": "I can help with searching for content, opening applications, and changing settings."
   },
   {
-    "idx": 42,
+    "idx": 162,
     "example": "how's traffic right now",
     "classifier_out": "out_of_scope",
     "llm_out": "I can help with searching for content, opening applications, and changing settings."
   },
   {
-    "idx": 43,
+    "idx": 163,
     "example": "when is my dentist appointment",
     "classifier_out": "out_of_scope",
     "llm_out": "I can help with searching for content, opening applications, and changing settings."
   },
   {
-    "idx": 44,
+    "idx": 164,
     "example": "phone Sarah",
     "classifier_out": "out_of_scope",
     "llm_out": "I can help with searching for content, opening applications, and changing settings."
   },
   {
-    "idx": 45,
+    "idx": 165,
     "example": "text message to Mike",
     "classifier_out": "out_of_scope",
     "llm_out": "I can help with searching for content, opening applications, and changing settings."
   },
   {
-    "idx": 46,
+    "idx": 166,
     "example": "wake me up at 6am",
     "classifier_out": "out_of_scope",
     "llm_out": "I can help with searching for content, opening applications, and changing settings."
   },
   {
-    "idx": 47,
+    "idx": 167,
     "example": "what's happening in the news",
     "classifier_out": "out_of_scope",
     "llm_out": "I can help with searching for content, opening applications, and changing settings."
   },
   {
-    "idx": 48,
+    "idx": 168,
     "example": "get me food from McDonalds",
     "classifier_out": "out_of_scope",
     "llm_out": "I can help with searching for content, opening applications, and changing settings."
   },
   {
-    "idx": 49,
+    "idx": 169,
+    "example": "what's the capital of Japan",
+    "classifier_out": "out_of_scope",
+    "llm_out": "I can help with searching for content, opening applications, and changing settings."
+  },
+  {
+    "idx": 170,
+    "example": "calculate 20 percent of 80",
+    "classifier_out": "out_of_scope",
+    "llm_out": "I can help with searching for content, opening applications, and changing settings."
+  },
+  {
+    "idx": 171,
+    "example": "switch on the bedroom lights",
+    "classifier_out": "out_of_scope",
+    "llm_out": "I can help with searching for content, opening applications, and changing settings."
+  },
+  {
+    "idx": 172,
+    "example": "what's my schedule for today",
+    "classifier_out": "out_of_scope",
+    "llm_out": "I can help with searching for content, opening applications, and changing settings."
+  },
+  {
+    "idx": 173,
+    "example": "start a game with me",
+    "classifier_out": "out_of_scope",
+    "llm_out": "I can help with searching for content, opening applications, and changing settings."
+  },
+  {
+    "idx": 174,
+    "example": "who's the current governor",
+    "classifier_out": "out_of_scope",
+    "llm_out": "I can help with searching for content, opening applications, and changing settings."
+  },
+  {
+    "idx": 175,
+    "example": "switch channel to Spanish",
+    "classifier_out": "out_of_scope",
+    "llm_out": "I can help with searching for content, opening applications, and changing settings."
+  },
+  {
+    "idx": 176,
+    "example": "how do I bake a cake",
+    "classifier_out": "out_of_scope",
+    "llm_out": "I can help with searching for content, opening applications, and changing settings."
+  },
+  {
+    "idx": 177,
+    "example": "reserve a table for dinner",
+    "classifier_out": "out_of_scope",
+    "llm_out": "I can help with searching for content, opening applications, and changing settings."
+  },
+  {
+    "idx": 178,
+    "example": "what's the euro exchange rate",
+    "classifier_out": "out_of_scope",
+    "llm_out": "I can help with searching for content, opening applications, and changing settings."
+  },
+  {
+    "idx": 179,
+    "example": "you're very helpful",
+    "classifier_out": "out_of_scope",
+    "llm_out": "I can help with searching for content, opening applications, and changing settings."
+  },
+  {
+    "idx": 180,
+    "example": "is it going to be sunny",
+    "classifier_out": "out_of_scope",
+    "llm_out": "I can help with searching for content, opening applications, and changing settings."
+  },
+  {
+    "idx": 181,
     "example": "tell me something interesting",
     "classifier_out": "out_of_scope",
     "llm_out": "I can help with searching for content, opening applications, and changing settings."
   },
   {
-    "idx": 50,
+    "idx": 182,
     "example": "find parking near me",
+    "classifier_out": "out_of_scope",
+    "llm_out": "I can help with searching for content, opening applications, and changing settings."
+  },
+  {
+    "idx": 183,
+    "example": "remind me about the meeting",
+    "classifier_out": "out_of_scope",
+    "llm_out": "I can help with searching for content, opening applications, and changing settings."
+  },
+  {
+    "idx": 184,
+    "example": "dial mom's number",
+    "classifier_out": "out_of_scope",
+    "llm_out": "I can help with searching for content, opening applications, and changing settings."
+  },
+  {
+    "idx": 185,
+    "example": "send an email",
+    "classifier_out": "out_of_scope",
+    "llm_out": "I can help with searching for content, opening applications, and changing settings."
+  },
+  {
+    "idx": 186,
+    "example": "set the timeline",
+    "classifier_out": "out_of_scope",
+    "llm_out": "I can help with searching for content, opening applications, and changing settings."
+  },
+  {
+    "idx": 187,
+    "example": "read me the headlines",
+    "classifier_out": "out_of_scope",
+    "llm_out": "I can help with searching for content, opening applications, and changing settings."
+  },
+  {
+    "idx": 188,
+    "example": "order Chinese takeout",
+    "classifier_out": "out_of_scope",
+    "llm_out": "I can help with searching for content, opening applications, and changing settings."
+  },
+  {
+    "idx": 189,
+    "example": "who invented the lightbulb",
+    "classifier_out": "out_of_scope",
+    "llm_out": "I can help with searching for content, opening applications, and changing settings."
+  },
+  {
+    "idx": 190,
+    "example": "what's 144 divided by 12",
+    "classifier_out": "out_of_scope",
+    "llm_out": "I can help with searching for content, opening applications, and changing settings."
+  },
+  {
+    "idx": 191,
+    "example": "turn off kitchen lights",
+    "classifier_out": "out_of_scope",
+    "llm_out": "I can help with searching for content, opening applications, and changing settings."
+  },
+  {
+    "idx": 192,
+    "example": "check my calendar",
+    "classifier_out": "out_of_scope",
+    "llm_out": "I can help with searching for content, opening applications, and changing settings."
+  },
+  {
+    "idx": 193,
+    "example": "who won the Super Bowl",
+    "classifier_out": "out_of_scope",
+    "llm_out": "I can help with searching for content, opening applications, and changing settings."
+  },
+  {
+    "idx": 194,
+    "example": "say this in French",
+    "classifier_out": "out_of_scope",
+    "llm_out": "I can help with searching for content, opening applications, and changing settings."
+  },
+  {
+    "idx": 195,
+    "example": "recipe for chocolate chip cookies",
+    "classifier_out": "out_of_scope",
+    "llm_out": "I can help with searching for content, opening applications, and changing settings."
+  },
+  {
+    "idx": 196,
+    "example": "book a hotel in Miami",
+    "classifier_out": "out_of_scope",
+    "llm_out": "I can help with searching for content, opening applications, and changing settings."
+  },
+  {
+    "idx": 197,
+    "example": "currency conversion USD to GBP",
+    "classifier_out": "out_of_scope",
+    "llm_out": "I can help with searching for content, opening applications, and changing settings."
+  },
+  {
+    "idx": 198,
+    "example": "thanks for everything",
     "classifier_out": "out_of_scope",
     "llm_out": "I can help with searching for content, opening applications, and changing settings."
   }

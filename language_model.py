@@ -1,16 +1,27 @@
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 import torch
 from utils import examples, intents, entities
+from llama_cpp import Llama
 
 lm_llama = "meta-llama/Llama-3.2-1B-Instruct"
 lm_qwen = "Qwen/Qwen2.5-0.5B-Instruct"
+lm_qwen_large = "Qwen/Qwen2.5-1.5B-Instruct"
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
-lm_tokenizer = AutoTokenizer.from_pretrained(lm_qwen)
+# 4-bit quantization config
+# quantization_config = BitsAndBytesConfig(
+#     load_in_4bit=True,
+#     bnb_4bit_use_double_quant=True,
+#     bnb_4bit_compute_dtype=torch.bfloat16
+# )
+
 lm_model = AutoModelForCausalLM.from_pretrained(
-    lm_qwen, 
-    dtype=torch.bfloat16, 
-).to(device)
+    lm_qwen,
+    dtype=torch.bfloat16,
+    device_map=device,
+)
+
+lm_tokenizer = AutoTokenizer.from_pretrained(lm_qwen)
 
 # Set pad token if not set
 if lm_tokenizer.pad_token is None:
@@ -69,7 +80,7 @@ def build_template_prompt(classifier_output, inp):
             },
             {
                 "role": "user",
-                "content": "open Netflix"
+                "content": "open Netflix app"
             },
             {
                 "role": "assistant",
@@ -77,7 +88,7 @@ def build_template_prompt(classifier_output, inp):
             },
              {
                 "role": "user",
-                "content": "launch YouTube"
+                "content": "launch my YouTube"
             },
             {
                 "role": "assistant",
@@ -141,19 +152,45 @@ def build_template_prompt(classifier_output, inp):
         messages = [
             {
                 "role": "system",
-                "content": system_base + (
-                    " Extract the settings action from the user request. "
-                    "Valid values are: volume_up, volume_down, mute, unmute, "
-                    "brightness_up, brightness_down, subtitles_on, subtitles_off."
-                )
+                "content": (system_base + "\n\n"
+                    "Extract the settings action from the user request."
+                    "Valid values are: volume_up, volume_down, volume_max, unmute, mute, "
+                    "brightness_up, brightness_down.\n\n"
+                    "STRICT CATEGORY RULES:\n"
+                    "- SCREEN/DISPLAY words (brightness, screen, display, picture, light, dim) → ONLY brightness_up or brightness_down\n"
+                    "- MUTE/UNMUTE words (mute, unmute, silent, silence, without sound, shut up, active, restore sound, turn sound on/off) → ONLY mute or unmute\n"
+                    "- VOLUME words (sound, audio, volume, noisy, loud, hear, level) → ONLY volume_up or volume_down or volume_max\n\n"
+
+                    "DIRECTION RULES:\n"
+                    "- silence / turn off / off / shut up / without → mute\n"
+                    "- unsilent / turn on / active / on / return / restore / back → unmute\n"
+                    "- increase / up / raise / higher / more / louder / noisy / too high / max → volume_max or volume_up\n"
+                    "- decrease / down / lower / reduce / less / quieter / too low → volume_down"
+                        )
             },
             {
                 "role": "user",
-                "content": "increase volume"
+                "content": "make the sound silent"
+            },
+            {
+                "role": "assistant",
+                "content": '{"settings_action":"mute"}'
+            },
+            {
+                "role": "user",
+                "content": "I want to increase the volume"
             },
             {
                 "role": "assistant",
                 "content": '{"settings_action":"volume_up"}'
+            },
+            {
+                "role": "user",
+                "content": "increase the screen brightness"
+            },
+            {
+                "role": "assistant",
+                "content": '{"settings_action":"brightness_up"}'
             },
             {
                 "role": "user",
