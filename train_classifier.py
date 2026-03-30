@@ -22,11 +22,11 @@ load_dotenv()
 class IntentClassifier:
 
     def __init__(self):
-       self.model_name = "distilbert/distilbert-base-multilingual-cased" 
-       self.model_path = "tvcommand/intent-classifier-multilingual"
+       self.model_name = "distilbert-base-multilingual-cased" 
+       self.model_path = "tvcommand/setting-classifier-multilingual"
        self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
        self.huggingface_token = os.getenv("huggingface_token")
-       self.num_labels = 5
+       self.num_labels = 7
 
        if self.huggingface_token is not None:
             huggingface_hub.login(self.huggingface_token)
@@ -51,7 +51,7 @@ class IntentClassifier:
 
         training_args = TrainingArguments(
                     output_dir = self.model_path,
-                    learning_rate=2e-4,
+                    learning_rate=1e-5,
                     per_device_train_batch_size=32,
                     per_device_eval_batch_size=32,
                     num_train_epochs=30,
@@ -77,11 +77,11 @@ class IntentClassifier:
         del trainer,model
         gc.collect()
 
-        if self.device == 'cuda':
-            torch.cuda.empty_cache()
+        # if self.device == 'cuda':
+        #     torch.cuda.empty_cache()
 
     def load_data(self):
-        df = pd.read_csv("data/multilingual_intent_dataset.csv")
+        df = pd.read_csv("data/settings_dataset.csv")
 
         # Encode Labels
         le = LabelEncoder()
@@ -106,7 +106,7 @@ class IntentClassifier:
         return train_dataset_tokenized, test_dataset_tokenized
 
     def tokenize_func(self, examples):
-        return self.tokenizer(examples['text'], truncation=True, padding='max_length')
+        return self.tokenizer(examples['text'], padding='max_length')
 
 
 if __name__ == "__main__":
