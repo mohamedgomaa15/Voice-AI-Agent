@@ -2,11 +2,23 @@ from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 import torch
 from utils import examples, intents, entities
 from llama_cpp import Llama
+from system import get_cpu_cores
+import time
+import re
+import sys
+import os
+import site
 
 lm_llama = "meta-llama/Llama-3.2-1B-Instruct"
 lm_qwen = "Qwen/Qwen2.5-0.5B-Instruct"
 lm_qwen_large = "Qwen/Qwen2.5-1.5B-Instruct"
-device = "cuda" if torch.cuda.is_available() else "cpu"
+llama_cpp_model = "./qwen2.5-1.5b-instruct-q8_0.gguf"
+
+MODELS = {
+    'qwen0.5': lm_qwen,
+    'qwen1.5': lm_qwen_large,
+    'llama_cpp_qwen': llama_cpp_model,
+}
 
 # 4-bit quantization config
 # quantization_config = BitsAndBytesConfig(
@@ -15,17 +27,133 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 #     bnb_4bit_compute_dtype=torch.bfloat16
 # )
 
-lm_model = AutoModelForCausalLM.from_pretrained(
-    lm_qwen,
-    dtype=torch.bfloat16,
-    device_map=device,
-)
+_cuda_setup_done = False
 
-lm_tokenizer = AutoTokenizer.from_pretrained(lm_qwen)
+def setup_llama_cuda():
+    """Setup CUDA paths for llama-cpp-python (called once)"""
+    global _cuda_setup_done
+    
+    if _cuda_setup_done or sys.platform != 'win32':
+        return
+    
+    user_site = site.getusersitepackages()
+    nvidia_path = os.path.join(user_site, 'nvidia')
+    
+    if os.path.exists(nvidia_path):
+        for lib in ['cublas', 'cuda_runtime']:
+            bin_path = os.path.join(nvidia_path, lib, 'bin')
+            if os.path.exists(bin_path):
+                try:
+                    os.add_dll_directory(bin_path)
+                except:
+                    pass
+    
+    _cuda_setup_done = True
 
-# Set pad token if not set
-if lm_tokenizer.pad_token is None:
-    lm_tokenizer.pad_token = lm_tokenizer.eos_token
+
+class LanguageModel:
+
+    def __init__(self, model_name='qwen0.5', device='cpu'):
+           self.model_name = model_name
+           self.model_path = MODELS[model_name]
+           self.device = device
+           self.tokenizer = None
+           self.model = None
+           if model_name == 'llama_cpp_qwen':
+                self.llama_cpp_model()
+           else:
+                self.hf_model()
+           
+
+    def llama_cpp_model(self):
+            self.model = Llama(
+                    model_path=self.model_path,
+                    n_ctx=1024,  
+                    n_threads=get_cpu_cores(), 
+                    n_gpu_layers=0 if self.device=='cpu' else -1,
+                    verbose=False,
+                )
+            self.tokenizer = AutoTokenizer.from_pretrained(MODELS['qwen1.5'])
+
+    def hf_model(self): 
+            self.tokenizer = AutoTokenizer.from_pretrained(self.model_path)
+            self.model = AutoModelForCausalLM.from_pretrained(
+                self.model_path,
+                dtype=torch.bfloat16,
+                device_map=self.device,
+            )
+            if self.tokenizer.pad_token is None:
+                self.tokenizer.pad_token = self.tokenizer.eos_token
+
+    def generate(self, user_input, classifier=None):
+        """
+        Generate entities extraction using the LLM with proper chat format.
+        
+        Args:
+            user_input: The user's command or query
+            
+        Returns:
+            JSON string with intent and entities
+        """
+        if classifier is not None:
+            prompt_template = build_template_prompt(classifier, user_input)
+        
+        
+        else:
+            prompt_template = build_template_full_prompt(user_input)
+
+        # Format messages into text prompt
+        formatted_prompt = self.tokenizer.apply_chat_template(
+            prompt_template, 
+            tokenize=False, 
+            add_generation_prompt=True
+        )
+
+        if self.model_name != "llama_cpp_qwen":   
+            inputs = self.tokenizer(formatted_prompt, return_tensors="pt").to(self.device)
+            # Generate
+            with torch.no_grad():
+                outputs = self.model.generate(
+                    **inputs,
+                    max_new_tokens=50,
+                    do_sample=False,
+                    pad_token_id=self.tokenizer.pad_token_id,
+                    eos_token_id=self.tokenizer.eos_token_id,
+                )
+        
+            # Decode only the new tokens
+            generated_tokens = outputs[0][inputs['input_ids'].shape[1]:]
+            result_text = self.tokenizer.decode(generated_tokens, skip_special_tokens=True).strip()
+
+        else:
+            output = self.model(
+                        formatted_prompt,
+                        max_tokens=50,
+                        stop=["<|im_end|>", "\n\n"],
+                        echo=False,
+                    )
+            result_text = output['choices'][0]['text'].strip()
+
+        # Post-process: try to return only the JSON object if extra text was generated
+        if not result_text.startswith("{"):
+            m = re.search(r"\{.*\}", result_text, re.DOTALL)
+            if m:
+                result_text = m.group(0)
+
+        return result_text
+
+    def __del__(self):
+        """Proper cleanup to avoid the NoneType error"""
+        if self.model_name == "llama_cpp_qwen" and self.model is not None:
+            try:
+                # Manually close the model before deletion
+                if hasattr(self.model, 'close'):
+                    self.model.close()
+                # Set to None to prevent double-cleanup
+                self.model = None
+            except:
+                pass  # Ignore cleanup errors
+
 
 def build_template_full_prompt(user_input):
     """
@@ -150,22 +278,20 @@ def build_template_prompt(classifier_output, inp):
 
     elif classifier_output == "settings":
         messages = [
-            {
+              {
                 "role": "system",
                 "content": (system_base + "\n\n"
                     "Extract the settings action from the user request."
                     "Valid values are: volume_up, volume_down, volume_max, unmute, mute, "
                     "brightness_up, brightness_down.\n\n"
                     "STRICT CATEGORY RULES:\n"
+                    "- SOUND/AUDIO/VOLUME words (sound, audio, volume, noisy, loud, quiet, hear, mute, unmute) → ONLY volume_up or volume_down or volume_max or mute or unmute\n"
                     "- SCREEN/DISPLAY words (brightness, screen, display, picture, light, dim) → ONLY brightness_up or brightness_down\n"
-                    "- MUTE/UNMUTE words (mute, unmute, silent, silence, without sound, shut up, active, restore sound, turn sound on/off) → ONLY mute or unmute\n"
-                    "- VOLUME words (sound, audio, volume, noisy, loud, hear, level) → ONLY volume_up or volume_down or volume_max\n\n"
-
                     "DIRECTION RULES:\n"
+                    "- increase / up / raise / higher / more / louder / noisy / too high / max → _max or _up\n"
+                    "- decrease / down / lower / reduce / less / quieter / too low → _down\n"
                     "- silence / turn off / off / shut up / without → mute\n"
-                    "- unsilent / turn on / active / on / return / restore / back → unmute\n"
-                    "- increase / up / raise / higher / more / louder / noisy / too high / max → volume_max or volume_up\n"
-                    "- decrease / down / lower / reduce / less / quieter / too low → volume_down"
+                    "- unsilent / turn on / active tv / on / return / restore / back → unmute"
                         )
             },
             {
@@ -228,68 +354,15 @@ def build_template_prompt(classifier_output, inp):
     return messages
 
 
-        
-        
-def llm_generate(user_input, classifier=None):
-    """
-    Generate entities extraction using the LLM with proper chat format.
-    
-    Args:
-        user_input: The user's command or query
-        
-    Returns:
-        JSON string with intent and entities
-    """
-    prompt = ""
-    if classifier is not None:
-        prompt_template = build_template_prompt(classifier, user_input)
-       
-       
-    else:
-        prompt_template = build_template_full_prompt(user_input)
-        
-    # Apply chat template manually
-    prompt_template = lm_tokenizer.apply_chat_template(
-        prompt_template, 
-        tokenize=False, 
-        add_generation_prompt=True
-    )
-    
-    # Tokenize
-    inputs = lm_tokenizer(prompt_template, return_tensors="pt").to(device)
-    
-    # Generate
-    with torch.no_grad():
-        outputs = lm_model.generate(
-            **inputs,
-            max_new_tokens=50,
-            do_sample=False,
-            pad_token_id=lm_tokenizer.pad_token_id,
-            eos_token_id=lm_tokenizer.eos_token_id,
-        )
-    
-    # Decode only the new tokens
-    generated_tokens = outputs[0][inputs['input_ids'].shape[1]:]
-    result_text = lm_tokenizer.decode(generated_tokens, skip_special_tokens=True).strip()
-
-    # Post-process: try to return only the JSON object if extra text was generated
-    import re
-    if not result_text.startswith("{"):
-        m = re.search(r"\{.*\}", result_text, re.DOTALL)
-        if m:
-            result_text = m.group(0)
-
-    return result_text
-
-
 if __name__ == "__main__":
     
-    # Test the LLM-based intent and entity extraction
-    print("Testing LLM Intent and Entity Extraction:\n")
-    
-    for user_input, true_intent, true_entity in zip(examples[:2], intents[:2], entities[:2]):
-        llm_output = llm_generate(user_input)
-        print(f"User Input: {user_input}")
-        print(f"LLM Output: {llm_output}")
-        print(f"True Intent: {true_intent}, True Entities: {true_entity}")
-        print("-" * 70)
+    start = time.time()
+    llm = LanguageModel(model_name='llama_cpp_qwen', device='cuda')
+    print("model Loaded.....")
+    print("example: ", "I want to watch Intersteller movie")
+    print("output: ", llm.generate("I want to watch Intersteller movie", classifier='search'))
+    print("Model generated......")
+    print("total time: ", time.time()-start)
+    print("model_path: ", llm.model_path)
+    #print("model: ", True)
+    # print("tokenizer: ", llm.tokenizer)
