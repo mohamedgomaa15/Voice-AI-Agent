@@ -66,7 +66,7 @@ class IntentClassifier:
                     args=training_args,
                     train_dataset = train_data,
                     eval_dataset = test_data,
-                    tokenizer = self.tokenizer,
+                    #tokenizer = self.tokenizer,
                     data_collator=data_collator,
                     compute_metrics= compute_metrics
                 )
