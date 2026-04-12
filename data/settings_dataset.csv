@@ -1732,8 +1732,6 @@ could you turn off sound now,mute
 make it quieter,volume_down
 please what time is it now,out_of_scope
 could you unmute now,unmute
-sound is low increase it please
-volume is very low higher it please
 hey decrease brightness,brightness_down
 hey volume down for me,volume_down
 hey what time is it now,out_of_scope
@@ -1763,7 +1761,6 @@ increase the volume more,volume_up
 sound is too low,volume_up
 bring the volume up,volume_up
 pump up the sound,volume_up
-i need more volumevolume_up
 add more sound,volume_up
 can you make it louder,volume_up
 raise the sound level,volume_up
@@ -1784,7 +1781,7 @@ it's too loud,volume_down
 this is very loud,volume_down
 sound is too high,volume_down
 sound is too high decrese it please,volume_down
-the sound is very high lower please, volume_down
+the sound is very high lower please,volume_down
 too noisy reduce it,volume_down
 this is hurting my ears,volume_down
 sound is annoying lower it,volume_down
