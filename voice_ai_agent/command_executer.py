@@ -21,6 +21,7 @@ class CommandExecutor:
             'Windows': {
                 'youtube': 'start chrome https://www.youtube.com',
                 'netflix': 'start chrome https://www.netflix.com',
+                'google': 'start chrome https://www.google.com',
                 'spotify': 'start spotify:',
                 'instagram': 'start chrome https://www.instagram.com',
                 'facebook': 'start chrome https://www.facebook.com',
@@ -38,6 +39,7 @@ class CommandExecutor:
             'Darwin': {  # macOS
                 'youtube': 'open https://www.youtube.com',
                 'netflix': 'open https://www.netflix.com',
+                'google': 'open https://www.google.com',
                 'spotify': 'open -a Spotify',
                 'instagram': 'open https://www.instagram.com',
                 'facebook': 'open https://www.facebook.com',
@@ -48,6 +50,7 @@ class CommandExecutor:
             'Linux': {
                 'youtube': 'xdg-open https://www.youtube.com',
                 'netflix': 'xdg-open https://www.netflix.com',
+                'google': 'xdg-open https://www.google.com',
                 'spotify': 'spotify',
                 'instagram': 'xdg-open https://www.instagram.com',
                 'chrome': 'google-chrome',

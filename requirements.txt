@@ -15,13 +15,17 @@ evaluate
 scikit-learn
 huggingface_hub
 flask
+flask-cors
+pyOpenSSL
 arabic_reshaper
 python-bidi
 langdetect
 pycaw # for Windows volume control
 comtypes # for Windows volume control
 sounddevice
+soundfile
 optree==0.18.0
-llama-cpp-python --prefer-binary --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cu124 # llama.cpp
+# llama-cpp-python --prefer-binary --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cu124 # llama.cpp
 nvidia-cuda-runtime-cu12 
 nvidia-cublas-cu12
+librosa

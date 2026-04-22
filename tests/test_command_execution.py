@@ -2,8 +2,8 @@
 Test command execution system
 """
 
-from command_executer import CommandExecutor
-from extract_entities import MultilingualHybridSystem
+from voice_ai_agent.command_executer import CommandExecutor
+from voice_ai_agent.extract_entities import MultilingualHybridSystem
 import time
 
 def test_execution_pipeline():

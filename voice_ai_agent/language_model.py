@@ -1,8 +1,8 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 import torch
-from utils import examples, intents, entities
-from llama_cpp import Llama
-from system import get_cpu_cores
+from voice_ai_agent.utils import examples, intents, entities
+# from llama_cpp import Llama
+# from system import get_cpu_cores
 import time
 import re
 import sys
@@ -12,12 +12,12 @@ import site
 lm_llama = "meta-llama/Llama-3.2-1B-Instruct"
 lm_qwen = "Qwen/Qwen2.5-0.5B-Instruct"
 lm_qwen_large = "Qwen/Qwen2.5-1.5B-Instruct"
-llama_cpp_model = "./qwen2.5-1.5b-instruct-q8_0.gguf"
+# llama_cpp_model = "./qwen2.5-1.5b-instruct-q8_0.gguf"
 
 MODELS = {
     'qwen0.5': lm_qwen,
     'qwen1.5': lm_qwen_large,
-    'llama_cpp_qwen': llama_cpp_model,
+    # 'llama_cpp_qwen': llama_cpp_model,
 }
 
 # 4-bit quantization config
@@ -54,32 +54,36 @@ def setup_llama_cuda():
 class LanguageModel:
 
     def __init__(self, model_name='qwen0.5', device='cpu'):
+           if model_name not in MODELS:
+               model_name = 'qwen0.5'
            self.model_name = model_name
            self.model_path = MODELS[model_name]
+           if device == 'cuda' and not torch.cuda.is_available():
+               print('CUDA unavailable; falling back to CPU')
+               device = 'cpu'
            self.device = device
            self.tokenizer = None
            self.model = None
-           if model_name == 'llama_cpp_qwen':
-                self.llama_cpp_model()
-           else:
-                self.hf_model()
+           # llama_cpp support disabled; always use HuggingFace models
+           self.hf_model()
            
 
-    def llama_cpp_model(self):
-            self.model = Llama(
-                    model_path=self.model_path,
-                    n_ctx=1024,  
-                    n_threads=get_cpu_cores(), 
-                    n_gpu_layers=0 if self.device=='cpu' else -1,
-                    verbose=False,
-                )
-            self.tokenizer = AutoTokenizer.from_pretrained(MODELS['qwen1.5'])
+    # def llama_cpp_model(self):
+    #         self.model = Llama(
+    #                 model_path=self.model_path,
+    #                 n_ctx=1024,  
+    #                 n_threads=get_cpu_cores(), 
+    #                 n_gpu_layers=0 if self.device=='cpu' else -1,
+    #                 verbose=False,
+    #             )
+    #         self.tokenizer = AutoTokenizer.from_pretrained(MODELS['qwen1.5'])
 
     def hf_model(self): 
             self.tokenizer = AutoTokenizer.from_pretrained(self.model_path)
+            dtype = torch.float32 if self.device == 'cpu' else torch.bfloat16
             self.model = AutoModelForCausalLM.from_pretrained(
                 self.model_path,
-                dtype=torch.bfloat16,
+                dtype=dtype,
                 device_map=self.device,
             )
             if self.tokenizer.pad_token is None:
@@ -109,30 +113,21 @@ class LanguageModel:
             add_generation_prompt=True
         )
 
-        if self.model_name != "llama_cpp_qwen":   
-            inputs = self.tokenizer(formatted_prompt, return_tensors="pt").to(self.device)
-            # Generate
-            with torch.no_grad():
-                outputs = self.model.generate(
-                    **inputs,
-                    max_new_tokens=50,
-                    do_sample=False,
-                    pad_token_id=self.tokenizer.pad_token_id,
-                    eos_token_id=self.tokenizer.eos_token_id,
-                )
-        
-            # Decode only the new tokens
-            generated_tokens = outputs[0][inputs['input_ids'].shape[1]:]
-            result_text = self.tokenizer.decode(generated_tokens, skip_special_tokens=True).strip()
+        # llama_cpp branch disabled; always generate with HuggingFace models
+        inputs = self.tokenizer(formatted_prompt, return_tensors="pt").to(self.device)
+        # Generate
+        with torch.no_grad():
+            outputs = self.model.generate(
+                **inputs,
+                max_new_tokens=50,
+                do_sample=False,
+                pad_token_id=self.tokenizer.pad_token_id,
+                eos_token_id=self.tokenizer.eos_token_id,
+            )
 
-        else:
-            output = self.model(
-                        formatted_prompt,
-                        max_tokens=50,
-                        stop=["<|im_end|>", "\n\n"],
-                        echo=False,
-                    )
-            result_text = output['choices'][0]['text'].strip()
+        # Decode only the new tokens
+        generated_tokens = outputs[0][inputs['input_ids'].shape[1]:]
+        result_text = self.tokenizer.decode(generated_tokens, skip_special_tokens=True).strip()
 
         # Post-process: try to return only the JSON object if extra text was generated
         if not result_text.startswith("{"):
@@ -144,15 +139,8 @@ class LanguageModel:
 
     def __del__(self):
         """Proper cleanup to avoid the NoneType error"""
-        if self.model_name == "llama_cpp_qwen" and self.model is not None:
-            try:
-                # Manually close the model before deletion
-                if hasattr(self.model, 'close'):
-                    self.model.close()
-                # Set to None to prevent double-cleanup
-                self.model = None
-            except:
-                pass  # Ignore cleanup errors
+        # llama_cpp cleanup disabled; HuggingFace models are managed by PyTorch
+        pass
 
 
 def build_template_full_prompt(user_input):

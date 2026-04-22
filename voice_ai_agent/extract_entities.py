@@ -773,8 +773,7 @@ class MultilingualHybridSystem:
 def evaluate_multilingual_system():
     """Evaluate the multilingual system on test data"""
     import pandas as pd
-    from utils import examples, intents as true_intents, entities as true_entities
-    
+    from voice_ai_agent.utils import examples, intents as true_intents, entities as true_entities
     system = MultilingualHybridSystem()
     
     print("Evaluating Multilingual Hybrid System...")

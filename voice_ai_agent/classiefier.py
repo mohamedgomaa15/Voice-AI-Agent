@@ -29,9 +29,9 @@ def setting_classifier_model(texts):
     pred_label = [out[0]['label'] for out in outs]
     entity = None
     if pred_label[0] == "out_of_scope":
-        entity = json.dumps({"settings_action": "unknown"}, separators=(",", ":"))
+        entity = {"settings_action": "unknown"}
     else :
-        entity = json.dumps({"settings_action": pred_label[0]}, separators=(",", ":"))
+        entity = {"settings_action": pred_label[0]}
     return entity
 
 # def cal_accuracy(model, texts, labels):

@@ -5,7 +5,7 @@ import gc
 import os
 from dotenv import load_dotenv
 from datasets import Dataset
-from utils import compute_metrics
+from voice_ai_agent.utils import compute_metrics
 from sklearn.preprocessing import LabelEncoder
 import huggingface_hub
 from sklearn.model_selection import train_test_split

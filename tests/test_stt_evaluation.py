@@ -3,7 +3,7 @@ Basic tests for EnglishSTT evaluation helper.
 """
 
 import time
-from english_stt_optimized import EnglishSTT
+from voice_ai_agent.english_stt_optimized2 import EnglishSTT
 
 
 def test_evaluate_dataset_simple(monkeypatch):

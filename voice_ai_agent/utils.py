@@ -44,6 +44,7 @@ entities = [
 KNOWN_APPS = {
     "Netflix": ["netflix", "net flix", "نتفليكس"],
     "YouTube": ["youtube", "you tube", "يوتيوب"],
+    "Google": ["google", "google chrome", "chrome", "chrome browser", "جوجل", "كروم"],
     "Prime Video": ["prime video", "prime_video", "video prime", "prime", "برايم فيديو"],
     "Disney": ["disney", "disney plus", "disney+", "ديزني", "ديزني بلس"],
     "Hulu": ["hulu", "هولو"],
@@ -122,10 +123,10 @@ def extract_settings_action(command):
         action_found = any(action_word in command_lower for action_word in actions)
             
         if target_found and action_found:
-                return json.dumps({"settings_action": action_name}, separators=(",", ":"))
+                return {"settings_action": action_name}
     
     # Fallback: unknown action
-    return json.dumps({"settings_action": "unknown"}, separators=(",", ":"))
+    return {"settings_action": "unknown"}
 
 
 def extract_app_name(command):
@@ -139,10 +140,10 @@ def extract_app_name(command):
     for app_name, list_app in KNOWN_APPS.items():
         for keyword in list_app:
             if keyword in command_lower:
-                return json.dumps({"app_name": app_name}, separators=(",", ":"))
+                return {"app_name": app_name}
         
     # Fallback
-    return json.dumps({"app_name": "unknown"}, separators=(",", ":"))
+    return {"app_name": "unknown"}
 
 
 
