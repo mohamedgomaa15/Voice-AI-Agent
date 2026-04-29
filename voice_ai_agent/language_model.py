@@ -1,12 +1,13 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 import torch
-from voice_ai_agent.utils import examples, intents, entities
+# from voice_ai_agent.utils import examples, intents, entities
 # from llama_cpp import Llama
 # from system import get_cpu_cores
 import time
 import re
 import sys
 import os
+import json
 import site
 
 lm_llama = "meta-llama/Llama-3.2-1B-Instruct"
@@ -53,7 +54,7 @@ def setup_llama_cuda():
 
 class LanguageModel:
 
-    def __init__(self, model_name='qwen0.5', device='cpu'):
+    def __init__(self, model_name='qwen0.5', device='cpu', apps_json_path = 'data/clean_apps.json'):
            if model_name not in MODELS:
                model_name = 'qwen0.5'
            self.model_name = model_name
@@ -64,10 +65,26 @@ class LanguageModel:
            self.device = device
            self.tokenizer = None
            self.model = None
+           self.apps_list = self._load_apps(apps_json_path)
+
            # llama_cpp support disabled; always use HuggingFace models
            self.hf_model()
            
+    def _load_apps(self, path):
+        try:
+            # Get project root (parent of voice_ai_agent)
+            base_dir = os.path.dirname(os.path.dirname(__file__))
 
+            full_path = os.path.join(base_dir, path)
+
+            with open(full_path, "r", encoding="utf-8") as f:
+                apps = json.load(f)
+
+            return [app["name"] for app in apps]
+
+        except Exception as e:
+            print("Error loading apps:", e)
+            return []
     # def llama_cpp_model(self):
     #         self.model = Llama(
     #                 model_path=self.model_path,
@@ -99,8 +116,9 @@ class LanguageModel:
         Returns:
             JSON string with intent and entities
         """
+
         if classifier is not None:
-            prompt_template = build_template_prompt(classifier, user_input)
+            prompt_template = build_template_prompt(classifier, user_input, self.apps_list)
         
         
         else:
@@ -180,7 +198,7 @@ Output format:
     
     return messages
 
-def build_template_prompt(classifier_output, inp):
+def build_template_prompt(classifier_output, inp, apps_list=None):
 
     system_base = (
         "You are an information extraction system. "
@@ -189,31 +207,54 @@ def build_template_prompt(classifier_output, inp):
     )
 
     if classifier_output == "open_app":
+        apps_text = ", ".join(apps_list) if apps_list else "unknown"
+
         messages = [
             {
                 "role": "system",
-                "content": system_base + " Extract the application name from the user request."
+                "content": (
+                "You are an intelligent assistant that extracts application names.\n"
+                "The user may speak naturally, with long sentences.\n"
+                "Your job is to find the intended application from the request.\n\n"
+                f"Available applications:\n{apps_text}\n\n"
+                "Rules:\n"
+                "- Match the closest application name\n"
+                "- Understand synonyms (e.g., 'code editor' → 'Visual Studio Code')\n"
+                "- Ignore extra words\n"
+                "- Return ONLY JSON\n\n"
+                'Format: {"app_name": "<app_name>"}'
+                )
             },
             {
-                "role": "user",
-                "content": "open Netflix app"
+            "role": "user",
+            "content": "hello assistant can you open vscode for me"
             },
             {
                 "role": "assistant",
-                "content": '{"app_name":"Netflix"}'
+                "content": '{"app_name":"Visual Studio Code"}'
             },
-             {
+            {
                 "role": "user",
-                "content": "launch my YouTube"
+                "content": "please launch my code editor"
             },
             {
                 "role": "assistant",
-                "content": '{"app_name":"YouTube"}'
+                "content": '{"app_name":"Visual Studio Code"}'
             },
+            {
+                "role": "user",
+                "content": "open telegram"
+            },
+            {
+                "role": "assistant",
+                "content": '{"app_name":"Telegram"}'
+            },
+
             {
                 "role": "user",
                 "content": inp
             }
+            
         ]
 
     elif classifier_output == "search":

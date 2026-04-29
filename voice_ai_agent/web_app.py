@@ -38,7 +38,33 @@ app.register_blueprint(api_bp)
 
 # Initialize components
 stt = EnglishSTT(device="cpu")
-executor = CommandExecutor()
+
+# ✅ FIX: Get the correct path to clean_apps.json
+def get_apps_json_path():
+    """Find the clean_apps.json file location"""
+    # Try multiple possible locations
+    possible_paths = [
+        os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "clean_apps.json"),
+        os.path.join(os.path.dirname(__file__), "data", "clean_apps.json"),
+        os.path.join(os.getcwd(), "data", "clean_apps.json"),
+        "./data/clean_apps.json",
+        "../data/clean_apps.json",
+    ]
+    
+    for path in possible_paths:
+        if os.path.exists(path):
+            print(f"✅ Found apps JSON at: {path}")
+            return path
+    
+    print("❌ WARNING: clean_apps.json not found in any expected location")
+    return "./data/clean_apps.json"  # Fallback
+
+# Initialize executor with the correct JSON path
+apps_json_path = get_apps_json_path()
+executor = CommandExecutor(json_path=apps_json_path)
+
+# ✅ Optional: Print loaded apps count for debugging
+print(f"📱 Loaded {len(executor.app_commands)} app commands")
 
 HTML = """
 <!DOCTYPE html>
@@ -282,7 +308,7 @@ HTML = """
 
         <div class="section">
             <h2>📝 Manual Command Input</h2>
-            <input type="text" id="manualCommand" placeholder="Enter your command here...">
+            <input type="text" id="manualCommand" placeholder="Enter your command here... (e.g., 'open vscode', 'open visual studio code')">
             <button onclick="processManual()">Process Command</button>
         </div>
 
@@ -384,7 +410,6 @@ HTML = """
                 });
 
                 console.log('Response status:', response.status);
-                console.log('Response headers:', response.headers);
 
                 if (!response.ok) {
                     const errorText = await response.text();
@@ -426,7 +451,6 @@ HTML = """
                 clearTimeout(timeout);
 
                 console.log('Response status:', response.status);
-                console.log('Response headers:', response.headers);
 
                 const text = await response.text();
                 console.log('Response text:', text);
@@ -497,12 +521,16 @@ def process_manual():
             return jsonify({'error': 'No command provided'}), 400
 
         command = data.get('command', '')
+        print(f"📝 Processing manual command: '{command}'")
 
         # Process with agent
         result = agent_system_setclass_appmatch(command)
+        print(f"🎯 Intent: {result['intent']}")
+        print(f"🏷️ Entities: {result['entity']}")
 
         # Execute command
         success, message = executor.execute_command(result['intent'], result['entity'])
+        print(f"⚙️ Execution: {'✅ Success' if success else '❌ Failed'} - {message}")
 
         return jsonify({
             'intent': result['intent'],
@@ -511,11 +539,16 @@ def process_manual():
             'execution_message': message
         })
     except Exception as e:
-        print(f"Error in process_manual: {str(e)}")
+        print(f"❌ Error in process_manual: {str(e)}")
+        import traceback
+        traceback.print_exc()
         return jsonify({'error': str(e)}), 500
 
 @app.route('/process_audio', methods=['POST'])
 def process_audio():
+    wav_path = None
+    temp_path = None
+    
     try:
         if 'audio' not in request.files:
             return jsonify({'error': 'No audio file provided'}), 400
@@ -528,49 +561,66 @@ def process_audio():
         fd, temp_path = tempfile.mkstemp(suffix='.webm')
         os.close(fd)
         audio_file.save(temp_path)
+        print(f"🎙️ Audio saved to: {temp_path}")
 
-        try:
-            # Transcribe
-            # Convert webm → wav first
-            wav_path = convert_to_wav(temp_path)
+        # Convert webm → wav
+        wav_path = convert_to_wav(temp_path)
+        print(f"🔄 Converted to: {wav_path}")
 
-            # Transcribe
-            transcription_result = stt.transcribe_file(wav_path)
-            command = transcription_result['text'].strip()
+        # Transcribe
+        transcription_result = stt.transcribe_file(wav_path)
+        command = transcription_result['text'].strip()
+        print(f"📝 Transcription: '{command}'")
 
-            # Process with agent
-            result = agent_system_setclass_appmatch(command)
+        if not command:
+            return jsonify({'error': 'No speech detected'}), 400
 
-            # Execute command
-            success, message = executor.execute_command(result['intent'], result['entity'])
+        # Process with agent
+        result = agent_system_setclass_appmatch(command)
+        print(f"🎯 Intent: {result['intent']}")
+        print(f"🏷️ Entities: {result['entity']}")
 
-            return jsonify({
-                'transcription': command,
-                'intent': result['intent'],
-                'entities': result['entity'],
-                'execution_success': success,
-                'execution_message': message
-            })
-        except Exception as e:
-            print(f"Error processing audio: {str(e)}")
-            return jsonify({'error': f'Processing failed: {str(e)}'}), 500
-        finally:
-            if os.path.exists(temp_path):
-                os.unlink(temp_path)
-            if 'wav_path' in locals() and os.path.exists(wav_path):
-                os.unlink(wav_path)
+        # Execute command
+        success, message = executor.execute_command(result['intent'], result['entity'])
+        print(f"⚙️ Execution: {'✅ Success' if success else '❌ Failed'} - {message}")
+
+        return jsonify({
+            'transcription': command,
+            'intent': result['intent'],
+            'entities': result['entity'],
+            'execution_success': success,
+            'execution_message': message
+        })
     except Exception as e:
-        print(f"Error in process_audio: {str(e)}")
-        return jsonify({'error': str(e)}), 500
+        print(f"❌ Error processing audio: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return jsonify({'error': f'Processing failed: {str(e)}'}), 500
+    finally:
+        # Clean up temporary files
+        if temp_path and os.path.exists(temp_path):
+            try:
+                os.unlink(temp_path)
+            except:
+                pass
+        if wav_path and os.path.exists(wav_path):
+            try:
+                os.unlink(wav_path)
+            except:
+                pass
 
 if __name__ == '__main__':
     import ssl
 
+    print("=" * 60)
     print("🚀 Starting Voice AI Agent Web App...")
+    print("=" * 60)
+    print(f"📱 Loaded {len(executor.app_commands)} app commands")
     print("📡 Server will be available at:")
     print("   - Local: http://localhost:5000")
     print("   - Network: http://0.0.0.0:5000")
     print("🔒 For microphone access, use: http://localhost:5000")
+    print("=" * 60)
 
     # Try to use HTTPS with self-signed certificate
     # If certificates don't exist, fall back to HTTP

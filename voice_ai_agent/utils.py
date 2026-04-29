@@ -1,6 +1,7 @@
 import numpy as np
 import evaluate
 import json
+import os
 
 
 # def compute_metrics(eval_pred):
@@ -128,20 +129,63 @@ def extract_settings_action(command):
     # Fallback: unknown action
     return {"settings_action": "unknown"}
 
+def _load_apps(path):
+    try:
+        # Get project root (parent of voice_ai_agent)
+        base_dir = os.path.dirname(os.path.dirname(__file__))
+
+        full_path = os.path.join(base_dir, path)
+
+        with open(full_path, "r", encoding="utf-8") as f:
+            apps = json.load(f)
+
+        return apps
+
+    except Exception as e:
+        print("Error loading apps:", e)
+        return []
+
 
 def extract_app_name(command):
     """Extract app name using simple matching - NO LLM!"""
     command_lower = command.lower()
 
-    # remove punctuation
-    command_lower = ''.join(command_lower.split(','))  # simple punctuation removal
-    command_lower = ''.join(command_lower.split('.'))
+    # remove punctuation 
+    for punc in [',', '.', '!', '?', '،', '؟']:
+        command_lower = command_lower.replace(punc, '')
     
-    for app_name, list_app in KNOWN_APPS.items():
-        for keyword in list_app:
-            if keyword in command_lower:
-                return {"app_name": app_name}
+    command_lower = command_lower.strip()
+
+    apps = _load_apps('data/clean_apps.json')
+    
+    # Track best match for fuzzy matching
+    best_match = None
+    best_match_score = 0
+    
+    for app in apps:
+        app_name = app['name']
+        aliases = app.get('aliases', [])
         
+        # Check all possible names (name + aliases)
+        all_names = [app_name.lower()] + [alias.lower() for alias in aliases]
+        
+        for name_variant in all_names:
+            # Exact word match (better than substring)
+            words = command_lower.split()
+            for word in words:
+                if name_variant == word:
+                    return {"app_name": app_name}
+            
+            # Partial match with scoring
+            if name_variant in command_lower:
+                score = len(name_variant)
+                if score > best_match_score:
+                    best_match_score = score
+                    best_match = app_name
+    
+    if best_match:
+        return {"app_name": best_match}
+    
     # Fallback
     return {"app_name": "unknown"}
 

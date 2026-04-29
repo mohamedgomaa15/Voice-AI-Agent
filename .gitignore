@@ -1,3 +1,8 @@
+# private files
+requirements.txt
+tests
+data/audio_samples
+
 # Ignore Python cache
 __pycache__/
 *.pyc

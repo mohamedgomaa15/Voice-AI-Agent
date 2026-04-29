@@ -1,0 +1,10 @@
+torch
+transformers
+flask
+flask-cors
+librosa
+evaluate
+scikit-learn
+huggingface_hub
+sounddevice
+soundfile

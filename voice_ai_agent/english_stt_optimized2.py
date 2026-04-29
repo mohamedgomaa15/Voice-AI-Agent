@@ -96,7 +96,7 @@ def _get_pipeline(device: Optional[str] = None):
             feature_extractor=processor.feature_extractor,
             max_new_tokens=128,
             chunk_length_s=25,   # slightly smaller chunks for stability
-            batch_size=8,        # safer batch size
+            # batch_size=8,        # safer batch size
             dtype=torch_dtype,   # Updated: torch_dtype -> dtype
             device=device,
         )
