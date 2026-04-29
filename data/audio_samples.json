@@ -1,0 +1,46 @@
+[
+  {
+    "audio": "audio_samples/sample_1.mp3",
+    "text": "can you please open google"
+  },
+  {
+    "audio": "audio_samples/sample_2.mp3",
+    "text": "open youtube and search for ai"
+  },
+  {
+    "audio": "audio_samples/sample_3.mp3",
+    "text": "open google and search for ai for advanced"
+  },
+  {
+    "audio": "audio_samples/sample_4.mp3",
+    "text": "search for ai in google"
+  },
+  {
+    "audio": "audio_samples/sample_5.mp3",
+    "text": "search for mohamed salah"
+  },
+  {
+    "audio": "audio_samples/sample_6.mp3",
+    "text": "can you please raise the brightness"
+  },
+  {
+    "audio": "audio_samples/sample_7.mp3",
+    "text": "increase the volume a little bit"
+  },
+  {
+    "audio": "audio_samples/sample_8.mp3",
+    "text": "decrease the volume"
+  },
+  {
+    "audio": "audio_samples/sample_9.mp3",
+    "text": "i am just recording this audio to make it long but i finally want you to open spotify"
+  },
+  {
+    "audio": "audio_samples/sample_10.mp3",
+    "text": "can you hear me"
+  },
+  {
+    "audio": "audio_samples/sample_11.mp3",
+    "text": "open youtube"
+  }
+]

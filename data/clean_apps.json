@@ -1,0 +1,888 @@
+[
+  {
+    "name": "Matrix",
+    "path": "/home/hamza/.local/share/applications/webapp-OnlineChat4519.desktop"
+  },
+  {
+    "name": "Arch",
+    "path": "/home/hamza/.local/share/applications/arch.desktop"
+  },
+  {
+    "name": "IntelliJ IDEA 2025.3.2",
+    "path": "/home/hamza/.local/share/applications/jetbrains-idea-f4c3ae75-9359-44ca-87e7-cc33618b6a6b.desktop"
+  },
+  {
+    "name": "Fedora",
+    "path": "/home/hamza/.local/share/applications/fedora.desktop"
+  },
+  {
+    "name": "JetBrains Toolbox",
+    "path": "/home/hamza/.local/share/applications/jetbrains-toolbox.desktop"
+  },
+  {
+    "name": "Android Studio",
+    "path": "/home/hamza/.local/share/applications/jetbrains-studio.desktop"
+  },
+  {
+    "name": "Minecraft",
+    "path": "/home/hamza/.local/share/applications/minecraft.desktop"
+  },
+  {
+    "name": "flashplayer",
+    "path": "/home/hamza/.local/share/applications/userapp-flashplayer-O3LMK3.desktop"
+  },
+  {
+    "name": "TV Home UI",
+    "path": "/home/hamza/.local/share/applications/alacarte-made-832121e6-0b9d-11f1-baac-e0d55df9464c.desktop"
+  },
+  {
+    "name": "Game 831593107883032657",
+    "path": "/home/hamza/.local/share/applications/discord-831593107883032657.desktop"
+  },
+  {
+    "name": "JetBrains",
+    "path": "/home/hamza/.local/share/applications/jetbrainsd.desktop"
+  },
+  {
+    "name": "Coulomb",
+    "path": "/var/lib/flatpak/exports/share/applications/io.github.hamza_algohary.Coulomb.desktop"
+  },
+  {
+    "name": "Luanti",
+    "path": "/var/lib/flatpak/exports/share/applications/org.luanti.luanti.desktop"
+  },
+  {
+    "name": "PCSX2",
+    "path": "/var/lib/flatpak/exports/share/applications/net.pcsx2.PCSX2.desktop"
+  },
+  {
+    "name": "OCRFeeder",
+    "path": "/var/lib/flatpak/exports/share/applications/org.gnome.OCRFeeder.desktop"
+  },
+  {
+    "name": "Dolphin Emulator",
+    "path": "/var/lib/flatpak/exports/share/applications/org.DolphinEmu.dolphin-emu.desktop"
+  },
+  {
+    "name": "Telegram",
+    "path": "/var/lib/flatpak/exports/share/applications/org.telegram.desktop.desktop"
+  },
+  {
+    "name": "Apostrophe",
+    "path": "/var/lib/flatpak/exports/share/applications/org.gnome.gitlab.somas.Apostrophe.desktop"
+  },
+  {
+    "name": "Widelands",
+    "path": "/var/lib/flatpak/exports/share/applications/org.widelands.Widelands.desktop"
+  },
+  {
+    "name": "Easy Effects",
+    "path": "/var/lib/flatpak/exports/share/applications/com.github.wwmm.easyeffects.desktop"
+  },
+  {
+    "name": "Prism Launcher",
+    "path": "/var/lib/flatpak/exports/share/applications/org.prismlauncher.PrismLauncher.desktop"
+  },
+  {
+    "name": "Kdenlive",
+    "path": "/var/lib/flatpak/exports/share/applications/org.kde.kdenlive.desktop"
+  },
+  {
+    "name": "Video Player",
+    "path": "C:\\Program Files\\VideoLAN\\VLC\\vlc.exe",
+    "aliases": ["video", "player", "videos", "vlc"]
+  },
+  {
+    "name": "Cine",
+    "path": "/var/lib/flatpak/exports/share/applications/io.github.diegopvlk.Cine.desktop"
+  },
+  {
+    "name": "Emote",
+    "path": "/var/lib/flatpak/exports/share/applications/com.tomjwatson.Emote.desktop"
+  },
+  {
+    "name": "Simple Wireplumber GUI",
+    "path": "/var/lib/flatpak/exports/share/applications/io.github.dyegoaurelio.simple-wireplumber-gui.desktop"
+  },
+  {
+    "name": "Rygel",
+    "path": "/usr/share/applications/rygel.desktop"
+  },
+  {
+    "name": "Panel",
+    "path": "/usr/share/applications/cinnamon-settings-panel.desktop"
+  },
+  {
+    "name": "Neverball",
+    "path": "/usr/share/applications/neverball.desktop"
+  },
+  {
+    "name": "Cinnamon",
+    "path": "/usr/share/applications/cinnamon.desktop"
+  },
+  {
+    "name": "Color selection dialog",
+    "path": "/usr/share/applications/mate-color-select.desktop"
+  },
+  {
+    "name": "Document Viewer",
+    "path": "/usr/share/applications/xreader.desktop"
+  },
+  {
+    "name": "Effects",
+    "path": "/usr/share/applications/cinnamon-settings-effects.desktop"
+  },
+  {
+    "name": "Help",
+    "path": "/usr/share/applications/yelp.desktop"
+  },
+  {
+    "name": "LibreOffice XSLT based filters",
+    "path": "/usr/share/applications/libreoffice-xsltfilter.desktop"
+  },
+  {
+    "name": "Disk Usage Analyzer",
+    "path": "/usr/share/applications/org.gnome.baobab.desktop"
+  },
+  {
+    "name": "Hot Corners",
+    "path": "/usr/share/applications/cinnamon-settings-hotcorner.desktop"
+  },
+  {
+    "name": "Archive Manager",
+    "path": "/usr/share/applications/org.gnome.FileRoller.desktop"
+  },
+  {
+    "name": "Text Editor",
+    "path": "/usr/share/applications/org.x.editor.desktop"
+  },
+  {
+    "name": "Startup Applications",
+    "path": "/usr/share/applications/gnome-session-properties.desktop"
+  },
+  {
+    "name": "Notifications",
+    "path": "/usr/share/applications/cinnamon-settings-notifications.desktop"
+  },
+  {
+    "name": "Displays",
+    "path": "/usr/share/applications/gnome-display-panel.desktop"
+  },
+  {
+    "name": "Xwayland",
+    "path": "/usr/share/applications/org.freedesktop.Xwayland.desktop"
+  },
+  {
+    "name": "System Monitor",
+    "path": "/usr/share/applications/org.gnome.SystemMonitor.desktop"
+  },
+  {
+    "name": "Settings",
+    "path": "/usr/share/applications/org.gnome.Settings.desktop"
+  },
+  {
+    "name": "Tecla",
+    "path": "/usr/share/applications/org.gnome.Tecla.desktop"
+  },
+  {
+    "name": "Welcome Screen",
+    "path": "/usr/share/applications/mintwelcome.desktop"
+  },
+  {
+    "name": "Backup Tool",
+    "path": "/usr/share/applications/mintbackup.desktop"
+  },
+  {
+    "name": "Online Accounts",
+    "path": "/usr/share/applications/gnome-online-accounts-gtk.desktop"
+  },
+  {
+    "name": "File Renamer",
+    "path": "/usr/share/applications/bulky.desktop"
+  },
+  {
+    "name": "Date & Time",
+    "path": "/usr/share/applications/cinnamon-settings-calendar.desktop"
+  },
+  {
+    "name": "Applets",
+    "path": "/usr/share/applications/cinnamon-settings-applets.desktop"
+  },
+  {
+    "name": "ScummVM",
+    "path": "/usr/share/applications/org.scummvm.scummvm.desktop"
+  },
+  {
+    "name": "Visual Studio Code",
+    "path": "C:\\Users\\HP Zbook G3\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+    "aliases": ["vscode", "editor", "code editor", "code", "visual studio"]
+  },
+  {
+    "name": "Reactivate HP LaserJet 1018/1020 after reloading paper",
+    "path": "/usr/share/applications/hplj1020.desktop"
+  },
+  {
+    "name": "System Settings",
+    "path": "/usr/share/applications/cinnamon-settings.desktop"
+  },
+  {
+    "name": "Passwords and Keys",
+    "path": "/usr/share/applications/org.gnome.seahorse.Application.desktop"
+  },
+  {
+    "name": "Font Selection",
+    "path": "/usr/share/applications/cinnamon-settings-fonts.desktop"
+  },
+  {
+    "name": "USB Image Writer",
+    "path": "/usr/share/applications/mintstick-kde.desktop"
+  },
+  {
+    "name": "Mouse & Touchpad",
+    "path": "/usr/share/applications/gnome-mouse-panel.desktop"
+  },
+  {
+    "name": "OpenJDK Java 25 Runtime",
+    "path": "/usr/share/applications/openjdk-25-java.desktop"
+  },
+  {
+    "name": "Library",
+    "path": "/usr/share/applications/thingy.desktop"
+  },
+  {
+    "name": "Bluetooth Transfer",
+    "path": "/usr/share/applications/bluetooth-sendto.desktop"
+  },
+  {
+    "name": "GNOME Shell",
+    "path": "/usr/share/applications/org.gnome.Shell.desktop"
+  },
+  {
+    "name": "Wacom Tablet",
+    "path": "/usr/share/applications/gnome-wacom-panel.desktop"
+  },
+  {
+    "name": "Accessibility",
+    "path": "/usr/share/applications/gnome-universal-access-panel.desktop"
+  },
+  {
+    "name": "Gestures",
+    "path": "/usr/share/applications/cinnamon-settings-gestures.desktop"
+  },
+  {
+    "name": "Actions",
+    "path": "/usr/share/applications/cinnamon-settings-actions.desktop"
+  },
+  {
+    "name": "Files",
+    "path": "/usr/share/applications/csd-automount.desktop"
+  },
+  {
+    "name": "Software Sources",
+    "path": "/usr/share/applications/mintsources.desktop"
+  },
+  {
+    "name": "Panel",
+    "path": "/usr/share/applications/mate-panel.desktop"
+  },
+  {
+    "name": "IBus Wayland",
+    "path": "/usr/share/applications/org.freedesktop.IBus.Panel.Wayland.Gtk3.desktop"
+  },
+  {
+    "name": "Software Manager",
+    "path": "/usr/share/applications/mintinstall-kde.desktop"
+  },
+  {
+    "name": "Image Viewer",
+    "path": "/usr/share/applications/xviewer.desktop"
+  },
+  {
+    "name": "Neverputt",
+    "path": "/usr/share/applications/neverputt.desktop"
+  },
+  {
+    "name": "Onboard",
+    "path": "/usr/share/applications/onboard.desktop"
+  },
+  {
+    "name": "Ubuntu Desktop",
+    "path": "/usr/share/applications/gnome-ubuntu-panel.desktop"
+  },
+  {
+    "name": "Bluetooth Adapters",
+    "path": "/usr/share/applications/blueman-adapters.desktop"
+  },
+  {
+    "name": "GNOME Remote Desktop Handover Daemon",
+    "path": "/usr/share/applications/org.gnome.RemoteDesktop.Handover.desktop"
+  },
+  {
+    "name": "USB Stick Formatter",
+    "path": "/usr/share/applications/mintstick-format-kde.desktop"
+  },
+  {
+    "name": "Thunderbolt",
+    "path": "/usr/share/applications/cinnamon-settings-thunderbolt.desktop"
+  },
+  {
+    "name": "Appearance",
+    "path": "/usr/share/applications/gnome-background-panel.desktop"
+  },
+  {
+    "name": "Power",
+    "path": "/usr/share/applications/gnome-power-panel.desktop"
+  },
+  {
+    "name": "Privacy & Security",
+    "path": "/usr/share/applications/gnome-privacy-panel.desktop"
+  },
+  {
+    "name": "Rhythmbox",
+    "path": "/usr/share/applications/org.gnome.Rhythmbox3.desktop"
+  },
+  {
+    "name": "Sound",
+    "path": "/usr/share/applications/gnome-sound-panel.desktop"
+  },
+  {
+    "name": "IBus Preferences",
+    "path": "/usr/share/applications/org.freedesktop.IBus.Setup.desktop"
+  },
+  {
+    "name": "Privacy",
+    "path": "/usr/share/applications/cinnamon-settings-privacy.desktop"
+  },
+  {
+    "name": "Virtual keyboard",
+    "path": "/usr/share/applications/cinnamon-onscreen-keyboard.desktop"
+  },
+  {
+    "name": "Disks",
+    "path": "/usr/share/applications/org.gnome.DiskUtility.desktop"
+  },
+  {
+    "name": "Mobile Network",
+    "path": "/usr/share/applications/gnome-wwan-panel.desktop"
+  },
+  {
+    "name": "Login Window",
+    "path": "/usr/share/applications/lightdm-settings.desktop"
+  },
+  {
+    "name": "Celluloid",
+    "path": "/usr/share/applications/io.github.celluloid_player.Celluloid.desktop"
+  },
+  {
+    "name": "QEMU",
+    "path": "/usr/share/applications/qemu.desktop"
+  },
+  {
+    "name": "Sharing",
+    "path": "/usr/share/applications/gnome-sharing-panel.desktop"
+  },
+  {
+    "name": "Beneath A Steel Sky",
+    "path": "/usr/share/applications/beneath-a-steel-sky.desktop"
+  },
+  {
+    "name": "dconf Editor",
+    "path": "/usr/share/applications/ca.desrt.dconf-editor.desktop"
+  },
+  {
+    "name": "Hypnotix",
+    "path": "/usr/share/applications/hypnotix.desktop"
+  },
+  {
+    "name": "Multitasking",
+    "path": "/usr/share/applications/gnome-multitasking-panel.desktop"
+  },
+  {
+    "name": "Extensions",
+    "path": "/usr/share/applications/cinnamon-settings-extensions.desktop"
+  },
+  {
+    "name": "Cinnamon (Wayland session)",
+    "path": "/usr/share/applications/cinnamon-wayland.desktop"
+  },
+  {
+    "name": "Windows",
+    "path": "/usr/share/applications/cinnamon-settings-windows.desktop"
+  },
+  {
+    "name": "Document Scanner",
+    "path": "/usr/share/applications/simple-scan.desktop"
+  },
+  {
+    "name": "Language Support",
+    "path": "/usr/share/applications/gnome-language-selector.desktop"
+  },
+  {
+    "name": "Nemo",
+    "path": "/usr/share/applications/nemo-autostart.desktop"
+  },
+  {
+    "name": "Screensaver",
+    "path": "/usr/share/applications/org.cinnamon.ScreenSaver.desktop"
+  },
+  {
+    "name": "System",
+    "path": "/usr/share/applications/gnome-system-panel.desktop"
+  },
+  {
+    "name": "Terminal Preferences",
+    "path": "/usr/share/applications/org.gnome.Terminal.Preferences.desktop"
+  },
+  {
+    "name": "Kazam",
+    "path": "/usr/share/applications/kazam.desktop"
+  },
+  {
+    "name": "Themes",
+    "path": "/usr/share/applications/cinnamon-settings-themes.desktop"
+  },
+  {
+    "name": "GNU Image Manipulation Program",
+    "path": "/usr/share/applications/gimp.desktop"
+  },
+  {
+    "name": "Network",
+    "path": "/usr/share/applications/gnome-network-panel.desktop"
+  },
+  {
+    "name": "Keyboard",
+    "path": "/usr/share/applications/gnome-keyboard-panel.desktop"
+  },
+  {
+    "name": "Users and Groups",
+    "path": "/usr/share/applications/cinnamon-settings-users.desktop"
+  },
+  {
+    "name": "Blobby Volley 2",
+    "path": "/usr/share/applications/blobby.desktop"
+  },
+  {
+    "name": "Input Method",
+    "path": "/usr/share/applications/im-config.desktop"
+  },
+  {
+    "name": "Emoji Choice",
+    "path": "/usr/share/applications/org.freedesktop.IBus.Panel.Emojier.desktop"
+  },
+  {
+    "name": "Display",
+    "path": "/usr/share/applications/cinnamon-display-panel.desktop"
+  },
+  {
+    "name": "Python (v3.12)",
+    "path": "/usr/share/applications/python3.12.desktop"
+  },
+  {
+    "name": "Input Remapper",
+    "path": "/usr/share/applications/input-remapper-gtk.desktop"
+  },
+  {
+    "name": "Account details",
+    "path": "/usr/share/applications/cinnamon-settings-user.desktop"
+  },
+  {
+    "name": "Web Apps",
+    "path": "/usr/share/applications/webapp-manager.desktop"
+  },
+  {
+    "name": "Languages",
+    "path": "/usr/share/applications/mintlocale.desktop"
+  },
+  {
+    "name": "Desklets",
+    "path": "/usr/share/applications/cinnamon-settings-desklets.desktop"
+  },
+  {
+    "name": "Desktop",
+    "path": "/usr/share/applications/cinnamon-settings-desktop.desktop"
+  },
+  {
+    "name": "Keyboard Layout",
+    "path": "/usr/share/applications/gkbd-keyboard-display.desktop"
+  },
+  {
+    "name": "Muffin",
+    "path": "/usr/share/applications/muffin.desktop"
+  },
+  {
+    "name": "Apps",
+    "path": "/usr/share/applications/gnome-applications-panel.desktop"
+  },
+  {
+    "name": "Notes",
+    "path": "/usr/share/applications/sticky.desktop"
+  },
+  {
+    "name": "Update Manager",
+    "path": "/usr/share/applications/mintupdate-kde.desktop"
+  },
+  {
+    "name": "Bluetooth Manager",
+    "path": "/usr/share/applications/blueman-manager.desktop"
+  },
+  {
+    "name": "Geoclue Demo agent",
+    "path": "/usr/share/applications/geoclue-demo-agent.desktop"
+  },
+  {
+    "name": "Search",
+    "path": "/usr/share/applications/gnome-search-panel.desktop"
+  },
+  {
+    "name": "Color",
+    "path": "/usr/share/applications/cinnamon-color-panel.desktop"
+  },
+  {
+    "name": "GNOME System Monitor",
+    "path": "/usr/share/applications/gnome-system-monitor-kde.desktop"
+  },
+  {
+    "name": "Character Map",
+    "path": "/usr/share/applications/gucharmap.desktop"
+  },
+  {
+    "name": "Bluetooth",
+    "path": "/usr/share/applications/gnome-bluetooth-panel.desktop"
+  },
+  {
+    "name": "Date & Time",
+    "path": "/usr/share/applications/gnome-datetime-panel.desktop"
+  },
+  {
+    "name": "Power Statistics",
+    "path": "/usr/share/applications/org.gnome.PowerStats.desktop"
+  },
+  {
+    "name": "Rhythmbox",
+    "path": "/usr/share/applications/org.gnome.Rhythmbox3.device.desktop"
+  },
+  {
+    "name": "Onboard Settings",
+    "path": "/usr/share/applications/onboard-settings.desktop"
+  },
+  {
+    "name": "Terminal",
+    "path": "/usr/share/applications/org.gnome.Terminal.desktop"
+  },
+  {
+    "name": "Visual Studio Code - URL Handler",
+    "path": "/usr/share/applications/code-url-handler.desktop"
+  },
+  {
+    "name": "System Administration",
+    "path": "/usr/share/applications/mintsysadm.desktop"
+  },
+  {
+    "name": "Fonts",
+    "path": "/usr/share/applications/org.gnome.font-viewer.desktop"
+  },
+  {
+    "name": "Import with Pix",
+    "path": "/usr/share/applications/pix-import.desktop"
+  },
+  {
+    "name": "Autorun Prompt",
+    "path": "/usr/share/applications/nemo-autorun-software.desktop"
+  },
+  {
+    "name": "USB Image Writer",
+    "path": "/usr/share/applications/mintstick.desktop"
+  },
+  {
+    "name": "Metacity",
+    "path": "/usr/share/applications/metacity.desktop"
+  },
+  {
+    "name": "Emoji Choice",
+    "path": "/usr/share/applications/org.freedesktop.IBus.Panel.Extension.Gtk3.desktop"
+  },
+  {
+    "name": "VLC media player",
+    "path": "/usr/share/applications/vlc.desktop"
+  },
+  {
+    "name": "Workspaces",
+    "path": "/usr/share/applications/cinnamon-settings-workspaces.desktop"
+  },
+  {
+    "name": "Printers",
+    "path": "/usr/share/applications/gnome-printers-panel.desktop"
+  },
+  {
+    "name": "Cheese",
+    "path": "/usr/share/applications/org.gnome.Cheese.desktop"
+  },
+  {
+    "name": "Screenshot",
+    "path": "/usr/share/applications/org.gnome.Screenshot.desktop"
+  },
+  {
+    "name": "Warpinator",
+    "path": "/usr/share/applications/org.x.Warpinator.desktop"
+  },
+  {
+    "name": "Fingerprints",
+    "path": "/usr/share/applications/fingwit.desktop"
+  },
+  {
+    "name": "Software Manager",
+    "path": "/usr/share/applications/mintinstall.desktop"
+  },
+  {
+    "name": "Evolution Data Server OAuth2 Handler",
+    "path": "/usr/share/applications/org.gnome.evolution-data-server.OAuth2-handler.desktop"
+  },
+  {
+    "name": "Power Management",
+    "path": "/usr/share/applications/cinnamon-settings-power.desktop"
+  },
+  {
+    "name": "Calendar",
+    "path": "/usr/share/applications/org.gnome.Calendar.desktop"
+  },
+  {
+    "name": "JD-GUI",
+    "path": "/usr/share/applications/jd-gui.desktop"
+  },
+  {
+    "name": "NetworkManager Applet",
+    "path": "/usr/share/applications/nm-applet.desktop"
+  },
+  {
+    "name": "Firewall Configuration",
+    "path": "/usr/share/applications/gufw.desktop"
+  },
+  {
+    "name": "Cinnamon Menu Editor",
+    "path": "/usr/share/applications/cinnamon-menu-editor.desktop"
+  },
+  {
+    "name": "Network",
+    "path": "/usr/share/applications/cinnamon-network-panel.desktop"
+  },
+  {
+    "name": "Vim",
+    "path": "/usr/share/applications/vim.desktop"
+  },
+  {
+    "name": "Region & Language",
+    "path": "/usr/share/applications/gnome-region-panel.desktop"
+  },
+  {
+    "name": "Firefox Web Browser",
+    "path": "/usr/share/applications/firefox.desktop"
+  },
+  {
+    "name": "Night Light",
+    "path": "/usr/share/applications/cinnamon-settings-nightlight.desktop"
+  },
+  {
+    "name": "Transmission",
+    "path": "/usr/share/applications/transmission-gtk.desktop"
+  },
+  {
+    "name": "Input method",
+    "path": "/usr/share/applications/mintlocale-im.desktop"
+  },
+  {
+    "name": "Printers",
+    "path": "/usr/share/applications/system-config-printer.desktop"
+  },
+  {
+    "name": "Extensions",
+    "path": "/usr/share/applications/org.gnome.Shell.Extensions.desktop"
+  },
+  {
+    "name": "Disk Image Mounter",
+    "path": "/usr/share/applications/gnome-disk-image-mounter.desktop"
+  },
+  {
+    "name": "Update Manager",
+    "path": "/usr/share/applications/mintupdate.desktop"
+  },
+  {
+    "name": "System Information",
+    "path": "/usr/share/applications/mintreport-tray.desktop"
+  },
+  {
+    "name": "Package Installer",
+    "path": "/usr/share/applications/captain.desktop"
+  },
+  {
+    "name": "Pix",
+    "path": "/usr/share/applications/pix.desktop"
+  },
+  {
+    "name": "Graphics Tablet",
+    "path": "/usr/share/applications/cinnamon-wacom-panel.desktop"
+  },
+  {
+    "name": "Timeshift",
+    "path": "/usr/share/applications/timeshift-gtk.desktop"
+  },
+  {
+    "name": "USB Stick Formatter",
+    "path": "/usr/share/applications/mintstick-format.desktop"
+  },
+  {
+    "name": "Disk Image Writer",
+    "path": "/usr/share/applications/gnome-disk-image-writer.desktop"
+  },
+  {
+    "name": "Preferred Applications",
+    "path": "/usr/share/applications/cinnamon-settings-default.desktop"
+  },
+  {
+    "name": "Software Manager",
+    "path": "/usr/share/applications/mintinstall-fp-handler.desktop"
+  },
+  {
+    "name": "Keyboard",
+    "path": "/usr/share/applications/cinnamon-settings-keyboard.desktop"
+  },
+  {
+    "name": "Portal",
+    "path": "/usr/share/applications/xdg-desktop-portal-xapp.desktop"
+  },
+  {
+    "name": "The Ur-Quan Masters",
+    "path": "/usr/share/applications/uqm.desktop"
+  },
+  {
+    "name": "GNOME OAuth2 Handler",
+    "path": "/usr/share/applications/org.gnome.OnlineAccounts.OAuth2.desktop"
+  },
+  {
+    "name": "Backgrounds",
+    "path": "/usr/share/applications/cinnamon-settings-backgrounds.desktop"
+  },
+  {
+    "name": "Printers",
+    "path": "/usr/share/applications/system-config-printer.desktop"
+  },
+  {
+    "name": "LibreOffice Impress",
+    "path": "/usr/share/applications/libreoffice-impress.desktop"
+  },
+  {
+    "name": "Files",
+    "path": "/usr/share/applications/nemo.desktop"
+  },
+  {
+    "name": "Portal",
+    "path": "/usr/share/applications/xdg-desktop-portal-gtk.desktop"
+  },
+  {
+    "name": "Events and Tasks Reminders",
+    "path": "/usr/share/applications/org.gnome.Evolution-alarm-notify.desktop"
+  },
+  {
+    "name": "Advanced Network Configuration",
+    "path": "/usr/share/applications/nm-connection-editor.desktop"
+  },
+  {
+    "name": "About MATE",
+    "path": "/usr/share/applications/mate-about.desktop"
+  },
+  {
+    "name": "Accessibility",
+    "path": "/usr/share/applications/cinnamon-settings-universal-access.desktop"
+  },
+  {
+    "name": "OpenTTD",
+    "path": "/usr/share/applications/openttd.desktop"
+  },
+  {
+    "name": "Color",
+    "path": "/usr/share/applications/gnome-color-panel.desktop"
+  },
+  {
+    "name": "Cinnamon Killer Daemon",
+    "path": "/usr/share/applications/cinnamon-killer-daemon.desktop"
+  },
+  {
+    "name": "Kobo Deluxe",
+    "path": "/usr/share/applications/kobodeluxe.desktop"
+  },
+  {
+    "name": "About",
+    "path": "/usr/share/applications/gnome-about-panel.desktop"
+  },
+  {
+    "name": "Li-ri",
+    "path": "/usr/share/applications/io.github.petitlapin.Li-ri.desktop"
+  },
+  {
+    "name": "Online Accounts",
+    "path": "/usr/share/applications/gnome-online-accounts-panel.desktop"
+  },
+  {
+    "name": "Cinnamon 2D",
+    "path": "/usr/share/applications/cinnamon2d.desktop"
+  },
+  {
+    "name": "Access Prompt",
+    "path": "/usr/share/applications/gcr-prompter.desktop"
+  },
+  {
+    "name": "Users",
+    "path": "/usr/share/applications/gnome-users-panel.desktop"
+  },
+  {
+    "name": "Notifications",
+    "path": "/usr/share/applications/gnome-notifications-panel.desktop"
+  },
+  {
+    "name": "Sound",
+    "path": "/usr/share/applications/cinnamon-settings-sound.desktop"
+  },
+  {
+    "name": "Wi-Fi",
+    "path": "/usr/share/applications/gnome-wifi-panel.desktop"
+  },
+  {
+    "name": "System Information",
+    "path": "/usr/share/applications/mintreport.desktop"
+  },
+  {
+    "name": "View file",
+    "path": "/usr/share/applications/gcr-viewer.desktop"
+  },
+  {
+    "name": "VirtualBox",
+    "path": "/usr/share/applications/virtualbox.desktop"
+  },
+  {
+    "name": "Calculator",
+    "path": "/usr/share/applications/org.gnome.Calculator.desktop"
+  },
+  {
+    "name": "Thunderbird Mail",
+    "path": "/usr/share/applications/thunderbird.desktop"
+  },
+  {
+    "name": "Welcome Screen",
+    "path": "/usr/share/applications/kde4/mintwelcome.desktop"
+  },
+  {
+    "name": "Backup Tool",
+    "path": "/usr/share/applications/kde4/mintbackup.desktop"
+  },
+  {
+    "name": "Web Apps",
+    "path": "/usr/share/applications/kde4/webapp-manager.desktop"
+  },
+  {
+    "name": "Driver Manager",
+    "path": "/usr/share/applications/kde4/mintdrivers.desktop"
+  },
+  {
+    "name": "System Reports",
+    "path": "/usr/share/applications/kde4/mintreport.desktop"
+  }
+]

@@ -1,24 +1,37 @@
-# private files
-requirements.txt
-tests
-data/audio_samples
+# ============================================
+# PRIVATE FILES
+# ============================================
 
-# Ignore Python cache
+# Ignore requirements.txt (keep base requirements visible)
+requirements.txt
+!requirements-base.txt
+
+# Ignore tests folder
+tests/
+
+# Ignore audio_samples in data folder only
+data/audio_samples/
+
+# ============================================
+# CACHE & ENVIRONMENT
+# ============================================
 __pycache__/
 *.pyc
-
-# Ignore environment folder
 env/
 voice/
-
-# Ignore VS Code settings
 .vscode/
+.idea/
 
-# Ignore large data
-data/
+# ============================================
+# DATA & LOGS
+# ============================================
 *.sqlite
 *.db
+*.log
+llm_raw.log
 
-# Ignore secrets
+# ============================================
+# SECRETS
+# ============================================
 .env
 config.json
