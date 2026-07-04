@@ -4,29 +4,94 @@ import tempfile
 import sys
 from pathlib import Path
 from flask_cors import CORS
+import imageio_ffmpeg
+import soundfile as sf
+
+
 
 # Add parent directory to path for package imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from voice_ai_agent.pipeline import agent_system_setclass_appmatch
 from voice_ai_agent.command_executer import CommandExecutor
-from voice_ai_agent.english_stt_optimized2 import EnglishSTT
+from voice_ai_agent.english_stt_optimized2 import STTModel
 from voice_ai_agent.api import api_bp
 
+from pydub import AudioSegment
 import subprocess
+import os
+import shutil
+
+AudioSegment.converter = imageio_ffmpeg.get_ffmpeg_exe()
+
+def find_ffmpeg():
+    """Find FFmpeg executable in common Windows installation paths"""
+    # Check if ffmpeg is in PATH
+    ffmpeg_path = shutil.which("ffmpeg")
+    if ffmpeg_path:
+        return ffmpeg_path
+    
+    # Common Windows installation paths
+    common_paths = [
+        r"C:\Program Files\ffmpeg\bin\ffmpeg.exe",
+        r"C:\Program Files (x86)\ffmpeg\bin\ffmpeg.exe",
+        r"C:\ffmpeg\bin\ffmpeg.exe",
+        r"C:\tools\ffmpeg\bin\ffmpeg.exe",
+        os.path.expandvars(r"%PROGRAMFILES%\ffmpeg\bin\ffmpeg.exe"),
+        os.path.expandvars(r"%PROGRAMFILES(x86)%\ffmpeg\bin\ffmpeg.exe"),
+    ]
+    
+    for path in common_paths:
+        if os.path.exists(path):
+            print(f"[INFO] Found FFmpeg at: {path}")
+            return path
+    
+    # Fallback: use bundled ffmpeg from imageio-ffmpeg package
+    try:
+        bundled_path = imageio_ffmpeg.get_ffmpeg_exe()
+        print(f"[INFO] Using bundled FFmpeg at: {bundled_path}")
+        return bundled_path
+    except Exception as e:
+        print(f"[WARNING] Bundled FFmpeg not available: {e}")
+    
+    return None
 
 def convert_to_wav(input_path):
+    """Convert audio file to 16kHz mono WAV with fallback methods"""
     output_path = input_path.replace(".webm", ".wav")
     
-    subprocess.run([
-        "ffmpeg",
-        "-i", input_path,
-        "-ar", "16000",
-        "-ac", "1",
-        output_path
-    ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
-    return output_path
+    # Method 1: Try pydub first
+    try:
+        print(f"[INFO] Attempting conversion with pydub...")
+        audio = AudioSegment.from_file(input_path, format="webm")
+        audio = audio.set_channels(1).set_frame_rate(16000)
+        audio.export(output_path, format="wav")
+        print(f"[SUCCESS] Audio converted with pydub")
+        return output_path
+    except Exception as e:
+        print(f"[WARNING] pydub failed: {e}")
+    
+    # Method 2: Fallback to ffmpeg command line
+    try:
+        print(f"[INFO] Attempting conversion with ffmpeg...")
+        ffmpeg_path = find_ffmpeg()
+        
+        if not ffmpeg_path:
+            raise FileNotFoundError("FFmpeg not found in PATH or common installation directories")
+        
+        subprocess.run([
+            ffmpeg_path,
+            "-i", input_path,
+            "-ar", "16000",
+            "-ac", "1",
+            output_path,
+            "-y"  # Overwrite output file
+        ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
+        print(f"[SUCCESS] Audio converted with ffmpeg")
+        return output_path
+    except Exception as e:
+        print(f"[ERROR] ffmpeg also failed: {e}")
+        raise Exception(f"Audio conversion failed. FFmpeg not installed or not in PATH. Install with: choco install ffmpeg. Error: {e}")
 
 app = Flask(__name__)
 
@@ -37,7 +102,7 @@ CORS(app)
 app.register_blueprint(api_bp)
 
 # Initialize components
-stt = EnglishSTT(device="cpu")
+stt = STTModel()
 
 # ✅ FIX: Get the correct path to clean_apps.json
 def get_apps_json_path():
@@ -567,9 +632,11 @@ def process_audio():
         wav_path = convert_to_wav(temp_path)
         print(f"🔄 Converted to: {wav_path}")
 
+        # Load WAV file into numpy array
+        audio_array, sample_rate = sf.read(wav_path)
+        
         # Transcribe
-        transcription_result = stt.transcribe_file(wav_path)
-        command = transcription_result['text'].strip()
+        command = stt.transcript(audio_array).strip()
         print(f"📝 Transcription: '{command}'")
 
         if not command:

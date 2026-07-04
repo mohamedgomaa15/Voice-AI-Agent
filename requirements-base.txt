@@ -8,3 +8,5 @@ scikit-learn
 huggingface_hub
 sounddevice
 soundfile
+imageio-ffmpeg
+pydub

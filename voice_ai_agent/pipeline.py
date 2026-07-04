@@ -1,13 +1,20 @@
 # from speech import speech_model
-from voice_ai_agent.classiefier import setting_classifier_model, intent_classifier_model
+from voice_ai_agent.classiefier import ONNXIntentClassifier, ONNXSettingClassifier
 from voice_ai_agent.language_model import LanguageModel
-from voice_ai_agent.utils import evaluate_perf_latency, extract_app_name, extract_settings_action
-import torch
+from voice_ai_agent.utils import extract_app_name
+#from voice_ai_agent.english_stt_optimized2 import STTModel
 import re
 import json
+import warnings
+import time
+warnings.filterwarnings("ignore", message=".*incorrect regex pattern.*")
 
-# Force CPU execution in environments without CUDA support
-llm = LanguageModel(device='cpu')
+print("Loading models...")
+intent_classifier_model = ONNXIntentClassifier()
+setting_classifier_model = ONNXSettingClassifier()
+llm = LanguageModel()
+#stt = STTModel()
+print("All models loaded!\n")
 
 
 def _parse_open_app_and_search(command):
@@ -31,7 +38,7 @@ def _parse_open_app_and_search(command):
 
 def agent_system_with_class_llm(command):
     # speech_out = speech_model(command)
-    classifier_out = intent_classifier_model(command)[0]
+    classifier_out,_ = intent_classifier_model.predict(command)[0]
     llm_out = llm.generate(command, classifier=classifier_out)
 
     return {
@@ -58,21 +65,18 @@ def agent_system_setclass_appmatch(command):
         return {
             "intent": "out_of_scope",
             "entity": entities,
-            "entities": entities,
         }
 
-    classifier_out = intent_classifier_model(command)[0]
+    classifier_out, _ = intent_classifier_model.predict(command)
 
     if classifier_out == "open_app":
         entities = extract_app_name(command)
 
     elif classifier_out == "settings":
-        entities = setting_classifier_model(command)
+        entities, _ = setting_classifier_model.predict(command)
 
     elif classifier_out == "out_of_scope":
-        entities = {
-            "message": "I can help with searching for content, opening applications, and control settings."
-        }
+        entities = "I can help with searching for content, opening applications, and control settings."
 
     elif classifier_out == "open_app_and_search":
         entities = _parse_open_app_and_search(command)
@@ -96,10 +100,16 @@ def agent_system_setclass_appmatch(command):
     return {
         "intent": classifier_out,
         "entity": entities,
-        "entities": entities,
     }
 
 
+if '__main__' == __name__:
+    commands = ['open minecraft', 'open prime video and search for Messi goals', 'search for content kids', 'raise the volume level', 'hello my friend']
+    for command in commands:
+        start = time.time()
+        out = agent_system_setclass_appmatch(command)
+        print("outpot: ", out)
+        print('time: ', time.time()-start)
     
 
 

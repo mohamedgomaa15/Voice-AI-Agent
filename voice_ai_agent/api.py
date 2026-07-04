@@ -6,14 +6,14 @@ Provides endpoints for other developers to integrate voice/text command processi
 from flask import Blueprint, request, jsonify
 from voice_ai_agent.pipeline import agent_system_setclass_appmatch
 from voice_ai_agent.command_executer import CommandExecutor
-from voice_ai_agent.english_stt_optimized2 import EnglishSTT
+from voice_ai_agent.english_stt_optimized2 import STTModel
 import tempfile
 import os
 
 api_bp = Blueprint('api', __name__, url_prefix='/api/v1')
 
 # Initialize components
-stt = EnglishSTT(device="cpu")
+stt = STTModel()
 
 # Get the correct path to clean_apps.json
 def get_apps_json_path():
@@ -109,7 +109,7 @@ def _process_audio_command(audio_file):
     
     try:
         # Transcribe
-        transcription_result = stt.transcribe_file(temp_path)
+        transcription_result = stt.transcript(temp_path)
         command = transcription_result['text'].strip()
         
         if not command:

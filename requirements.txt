@@ -2,7 +2,6 @@ torch
 whisper
 openai-whisper
 datasets
-ollama
 pyttsx3
 pygame
 edge-tts
@@ -29,3 +28,5 @@ optree==0.18.0
 nvidia-cuda-runtime-cu12 
 nvidia-cublas-cu12
 librosa
+imageio-ffmpeg
+pydub
